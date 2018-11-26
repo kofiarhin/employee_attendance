@@ -14,16 +14,16 @@
 
 		public function __construct($user = false) {
 
-			$this->db = db::get_instance();
+			$this->db = Db::get_instance();
 
-			$this->session_name = config::get("session/session_name");
+			$this->session_name = Config::get("session/session_name");
 
 
 			if(!$user) {
 
 				//check if session exist;
 
-				if(session::exist($this->session_name)) {
+				if(Session::exist($this->session_name)) {
 
 					$user = session::get($this->session_name);
 

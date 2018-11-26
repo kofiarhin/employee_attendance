@@ -18,7 +18,7 @@ require_once "header.php";
 
 				<?php 
 
-				if(input::exist("post", "login_submit")) {
+				if(Input::exist("post", "login_submit")) {
 
 					$validation = new Validation;
 
@@ -51,7 +51,7 @@ require_once "header.php";
 
 										session::put(config::get("session/session_name"), "admin");
 
-										redirect::to("admin_dashboard.php");
+										Redirect::to("admin_dashboard.php");
 							} else {
 
 

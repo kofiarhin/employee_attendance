@@ -2,26 +2,6 @@
 
 	session_start();
 
-	define('application', realpath('./'));
-
-	$paths = array(
-
-
-		application,
-		application.'\classes',
-		get_include_path()
-	);
-
-
-	set_include_path(implode(PATH_SEPARATOR, $paths));
-
-	spl_autoload_register(function($class){
-
-		require_once $class.".php";
-		
-	});
-
-
 
 	$GLOBALS['config'] = array (
 
@@ -57,3 +37,7 @@
 		)
 
 	);
+
+
+	require_once dirname(__dir__) ."\\vendor\\autoload.php";
+

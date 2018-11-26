@@ -14,7 +14,7 @@ class Db {
 
 	private function __construct() {
 
-		$username = config::get('mysql/user');
+		$username = Config::get('mysql/user');
 		$password = config::get('mysql/password');
 		$dbname = config::get('mysql/dbname');
 
