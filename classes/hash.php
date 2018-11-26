@@ -1,6 +1,6 @@
 <?php 
 
-	class hash {
+	class Hash {
 
 		public static function make($string, $salt = '') {
 

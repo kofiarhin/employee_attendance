@@ -3,7 +3,10 @@
 
 require_once "header.php";
 
-$user_id = input::get("user_id");
+$user_id = Input::get("user_id");
+
+
+$positions = $user->get_positions();
 
 if(!$user_id) {
 
@@ -32,6 +35,8 @@ if($user->logged_in() || session::get("user") == "admin") {
 					$position = $user->data()->position;
 					$grade = $user->data()->grade;
 					$person_pic  = $user->data()->profile_pic;
+
+					echo $position;
 				}
 
 
@@ -67,7 +72,7 @@ if($user->logged_in() || session::get("user") == "admin") {
 
 
 							//check for save changes
-					if(input::exist('post', 'save_submit')) {
+					if(Input::exist('post', 'save_submit')) {
 
 						
 
@@ -112,14 +117,24 @@ if($user->logged_in() || session::get("user") == "admin") {
 
 								$user_fields = array(
 
-									'first_name' => input::get('first_name'),
-									'last_name' =>  input::geT('last_name'),
-									'email' => input::get('email')
+									'user_id' => $user_id,
+									'first_name' => Input::get('first_name'),
+									'last_name' =>  Input::geT('last_name'),
+									'position' =>  input::get('position'),
+									'email' => Input::get('email')
 
 								);
 								
 
 								$update = $user->update($user_fields);
+
+								if($update) {
+
+
+									Redirect::to("view_user.php?user_id=".$user_id);
+								}
+
+
 
 
 
@@ -150,7 +165,7 @@ if($user->logged_in() || session::get("user") == "admin") {
 						<div class="form-group">
 
 							<label for="first_name">First Name</label>
-							<input type="text" class="form-control" name="first_name" placeholder="First Name" value="<?php echo ucfirst($first_name); ?>">
+							<Input type="text" class="form-control" name="first_name" placeholder="First Name" value="<?php echo ucfirst($first_name); ?>">
 
 
 						</div>
@@ -159,7 +174,7 @@ if($user->logged_in() || session::get("user") == "admin") {
 						<div class="form-group">
 							
 							<label for="last_name">Last Name</label>
-							<input type="text" class="form-control" name="last_name" placeholder="Last Name" value="<?php echo ucfirst($last_name); ?>">
+							<Input type="text" class="form-control" name="last_name" placeholder="Last Name" value="<?php echo ucfirst($last_name); ?>">
 
 
 						</div>
@@ -169,9 +184,11 @@ if($user->logged_in() || session::get("user") == "admin") {
 						<div class="form-group">
 							
 							<label for="first_name">Position</label>
-							<input type="text" class="form-control" name="position" placeholder="Position" value="<?php echo ucfirst($position); ?>" disabled>
+							
+							<input type="text" class="form-control" value="<?php echo $position; ?>" disabled>
 
-
+							<span><a href="change_position.php?user_id=<?php echo $user_id; ?>" style="margin-left: 10px; margin-top:0.8em; display: inline-block">Change Position</a></span>
+							
 						</div>
 
 
@@ -179,7 +196,9 @@ if($user->logged_in() || session::get("user") == "admin") {
 						<div class="form-group">
 							
 							<label for="first_name">Email</label>
-							<input type="text" class="form-control" name="email" placeholder="Email" value="<?php echo $email; ?>">
+							<Input type="text" class="form-control" name="email" placeholder="Email" value="<?php echo $email; ?>">
+
+							<span><a href="change_email.php?user_id=<?php echo $user_id; ?>" style="margin-left: 10px; margin-top:0.8em; display: inline-block">Change Email</a></span>
 
 
 						</div>
@@ -189,7 +208,7 @@ if($user->logged_in() || session::get("user") == "admin") {
 						<div class="form-group">
 							
 							<label for="first_name">Contact</label>
-							<input type="text" class="form-control" name="contact" placeholder="First Name" value=<?php echo "0".$contact; ?>>
+							<Input type="text" class="form-control" name="contact" placeholder="First Name" value=<?php echo "0".$contact; ?>>
 
 
 						</div>

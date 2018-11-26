@@ -9,11 +9,11 @@ return array(
     'Carbon\\Carbon' => $baseDir . '/classes/Carbon.php',
     'Config' => $baseDir . '/classes/config.php',
     'Db' => $baseDir . '/classes/db.php',
+    'Hash' => $baseDir . '/classes/Hash.php',
     'Input' => $baseDir . '/classes/input.php',
     'Redirect' => $baseDir . '/classes/redirect.php',
     'Session' => $baseDir . '/classes/session.php',
     'Timesheet' => $baseDir . '/classes/timesheet.php',
     'User' => $baseDir . '/classes/user.php',
     'Validation' => $baseDir . '/classes/validation.php',
-    'hash' => $baseDir . '/classes/hash.php',
 );

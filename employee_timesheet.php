@@ -10,7 +10,7 @@ $timesheet = new Timesheet;
 
 if(!$user->logged_in()) {
 
-	redirect::to("login.php");
+	Redirect::to("login.php");
 }
 
 
@@ -34,7 +34,7 @@ if($user->exist()) {
 <?php 
 
 
-if(input::exist('post', 'stampin_submit')) {
+if(Input::exist('post', 'stampin_submit')) {
 
 
 	$user_id = session::get('user');
@@ -62,16 +62,16 @@ if(input::exist('post', 'stampin_submit')) {
 
 
 
-if(input::exist("post", "stampout_submit")) {
+if(Input::exist("post", "stampout_submit")) {
 
 	$time_out = date("H:i:s");
-	$id = input::get("timesheet_id");
+	$id = Input::get("timesheet_id");
 	
 	$stampout = $timesheet->stamp_out($id, $time_out);
 
 	if($stampout) {
 
-		redirect::to("employee_timesheet.php");
+		Redirect::to("employee_timesheet.php");
 	}
 
 
@@ -176,7 +176,7 @@ if(input::exist("post", "stampout_submit")) {
 
 							?>
 
-							<input type="hidden" name="timesheet_id" value="<?php echo $check; ?>">
+							<Input type="hidden" name="timesheet_id" value="<?php echo $check; ?>">
 
 							<button class="btn btn-danger" type="submit" name="stampout_submit">Stamp Out!</button>
 							<?php 

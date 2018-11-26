@@ -59,7 +59,7 @@ $positions = $user->get_positions();
 					'contact' => array(
 
 						'required' => true,
-						'min' => 10
+						'min' => 9
 
 					),
 
@@ -107,6 +107,8 @@ $positions = $user->get_positions();
 
 				if($check->passed()) {
 
+
+					//echo "pass";
 
 					$salt = Hash::salt(32);
 					$password = Hash::make(Input::get('password') , $salt);
@@ -247,6 +249,41 @@ $positions = $user->get_positions();
 				</div>
 
 
+				<div class="row">
+					
+
+					<div class="col">
+
+						<div class="form-group">
+
+
+							<label for="password">Password</label>
+							<Input type="password" name="password" value="<?php echo Input::get("password"); ?>" placeholder="Enter Password" class="form-control">
+
+						</div>
+
+
+					</div>
+
+
+
+
+					<div class="col">
+
+						<div class="form-group">
+
+							<label for="password_repeat">Repeat Password</label>	
+
+
+							<Input type="password"  name="password_repeat" class="form-control" value="<?php echo Input::get("password_repeat"); ?>" placeholder="Repeat Password">
+						</div>
+
+					</div>
+
+
+				</div>
+
+
 
 				<div class="row">
 					
@@ -308,46 +345,10 @@ $positions = $user->get_positions();
 				</div>
 
 
-				<div class="row">
-					
-
-					<div class="col">
-
-						<div class="form-group">
+				
 
 
-							<label for="password">Password</label>
-							<Input type="password" name="password" value="<?php echo Input::get("password"); ?>" placeholder="Enter Password" class="form-control">
-
-						</div>
-
-
-					</div>
-
-
-
-
-					<div class="col">
-
-						<div class="form-group">
-
-							<label for="password_repeat">Repeat Password</label>	
-
-
-							<Input type="password"  name="password_repeat" class="form-control" value="<?php echo Input::get("password_repeat"); ?>" placeholder="Repeat Password">
-						</div>
-
-					</div>
-
-
-					<button class="btn btn-block btn-primary" type="submit" name="register_submit">Register</button>
-
-
-
-
-
-
-				</div>
+				<button class="btn btn-block btn-primary" type="submit" name="register_submit">Register</button>
 
 				
 

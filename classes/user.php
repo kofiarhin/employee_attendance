@@ -50,6 +50,24 @@
 		}
 
 
+		public function update($user_id, $fields) {
+
+
+
+			$update = $this->db->update('users', $fields, array('id', '=', $user_id));
+
+			if($update) {
+
+				return true;
+			}
+
+
+			return false;
+
+
+		}
+
+
 		public function logged_in() {
 
 			return $this->logged_in;
@@ -153,7 +171,7 @@
 
 				if($user) {
 
-						if($this->data()->password == hash::make($password, $this->data()->salt)) {
+						if($this->data()->password == Hash::make($password, $this->data()->salt)) {
 
 							session::put($this->session_name, $this->data()->id);
 

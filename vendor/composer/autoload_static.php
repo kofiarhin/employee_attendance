@@ -10,13 +10,13 @@ class ComposerStaticInit1f3be9c81b86f584ba53d11d4bd4132a
         'Carbon\\Carbon' => __DIR__ . '/../..' . '/classes/Carbon.php',
         'Config' => __DIR__ . '/../..' . '/classes/config.php',
         'Db' => __DIR__ . '/../..' . '/classes/db.php',
+        'Hash' => __DIR__ . '/../..' . '/classes/Hash.php',
         'Input' => __DIR__ . '/../..' . '/classes/input.php',
         'Redirect' => __DIR__ . '/../..' . '/classes/redirect.php',
         'Session' => __DIR__ . '/../..' . '/classes/session.php',
         'Timesheet' => __DIR__ . '/../..' . '/classes/timesheet.php',
         'User' => __DIR__ . '/../..' . '/classes/user.php',
         'Validation' => __DIR__ . '/../..' . '/classes/validation.php',
-        'hash' => __DIR__ . '/../..' . '/classes/hash.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
