@@ -42,14 +42,14 @@ require_once "header.php";
 					if($check->passed()) {
 
 
-							$employee_id = input::get("employee_id");
+							$employee_id = Input::get("employee_id");
 
-							$password = input::get("password");
+							$password = Input::get("password");
 
 							if($employee_id == "admin" && $password == "password") {
 
 
-										session::put(config::get("session/session_name"), "admin");
+										Session::put(config::get("session/session_name"), "admin");
 
 										Redirect::to("admin_dashboard.php");
 							} else {
@@ -62,7 +62,7 @@ require_once "header.php";
 
 									session::flash("error", "Employee ID must be a number");
 
-									redirect::to("login.php");
+									Redirect::to("login.php");
 
 
 									exit();
@@ -72,7 +72,7 @@ require_once "header.php";
 
 								$user = new User;
 
-								$emp_id = input::get("employee_id");
+								$emp_id = Input::get("employee_id");
 
 								$check = $user->check_id($emp_id);
 
@@ -83,7 +83,7 @@ require_once "header.php";
 
 									if($login) {
 
-										redirect::to("employee_timesheet.php");
+										Redirect::to("employee_timesheet.php");
 									} else {
 
 										?>
@@ -135,14 +135,14 @@ require_once "header.php";
 					<div class="form-group">
 						
 						<label for="email">Employee ID</label>
-						<input type="text" name="employee_id" placeholder="Enter Your ID" value="<?php echo input::get('employee_id'); ?>" class="form-control">
+						<input type="text" name="employee_id" placeholder="Enter Your ID" value="<?php echo Input::get('employee_id'); ?>" class="form-control">
 					</div>
 
 					<div class="form-group">
 						
 						<label for="password">Password</label>
 
-						<input type="password"  name="password"class="form-control" placeholder="Enter Password" value="<?php echo input::get('password'); ?>">
+						<input type="password"  name="password"class="form-control" placeholder="Enter Password" value="<?php echo Input::get('password'); ?>">
 
 					</div>
 

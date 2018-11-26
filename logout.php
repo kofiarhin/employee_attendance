@@ -4,8 +4,8 @@
 
 
 
-		session::delete('user');
+		Session::delete('user');
 
-		redirect::to("index.php");
+		Redirect::to("index.php");
 
  ?>
