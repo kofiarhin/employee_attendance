@@ -13,9 +13,12 @@
 <?php 
 
 
-		use Carbon\Carbon as Carbon;
-
+		
+		use Carbon\Carbon;
 		$carbon = new Carbon();
+
+
+		var_dump($carbon);
 
 
  ?>
