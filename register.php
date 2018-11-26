@@ -26,7 +26,7 @@ $positions = $user->get_positions();
 			<?php 
 
 
-			if(input::exist('post', 'register_submit')) {
+			if(Input::exist('post', 'register_submit')) {
 
 
 						//validate data
@@ -109,18 +109,18 @@ $positions = $user->get_positions();
 
 
 					$salt = Hash::salt(32);
-					$password = hash::make(input::get('password') , $salt);
+					$password = Hash::make(Input::get('password') , $salt);
 
 
 					$user_fields = array(
 
 
-						'first_name' => input::get('first_name'),
-						'last_name' =>  input::get('last_name'),
-						'email' =>  input::get('email'), 
-						'contact' => input::get('contact'),
-						'position' => input::get("position"),
-						'grade' => (int) input::get('grade'),
+						'first_name' => Input::get('first_name'),
+						'last_name' =>  Input::get('last_name'),
+						'email' =>  Input::get('email'), 
+						'contact' => Input::get('contact'),
+						'position' => Input::get("position"),
+						'grade' => (int) Input::get('grade'),
 						'password'  => $password,
 						'salt' => $salt,
 						'profile_pic' => 'default.jpg',
@@ -138,13 +138,13 @@ $positions = $user->get_positions();
 
 					if($account) {
 
-						redirect::to("admin_dashboard.php");
+						Redirect::to("admin_dashboard.php");
 					} else {
 
 
 						?>
 
-						<p class="alert alert-danger"><?php echo session::flash("error"); ?></p>
+						<p class="alert alert-danger"><?php echo Session::flash("error"); ?></p>
 
 
 						<?php 
@@ -183,7 +183,7 @@ $positions = $user->get_positions();
 
 							<label for="first_name">First Name</label>
 
-							<input type="text" class="form-control" name="first_name" placeholder="Enter First Name" value="<?php echo input::get('first_name'); ?>">
+							<Input type="text" class="form-control" name="first_name" placeholder="Enter First Name" value="<?php echo Input::get('first_name'); ?>">
 
 						</div>
 						
@@ -198,7 +198,7 @@ $positions = $user->get_positions();
 
 							<label for="last_name">Last Name</label>
 
-							<input type="text" class="form-control" name="last_name" value="<?php echo input::get("last_name"); ?>"  placeholder="Enter Last Name">
+							<Input type="text" class="form-control" name="last_name" value="<?php echo Input::get("last_name"); ?>"  placeholder="Enter Last Name">
 
 
 						</div>
@@ -218,7 +218,7 @@ $positions = $user->get_positions();
 
 							<label for="contact">Contact</label>
 
-							<input type="text" class="form-control" name="contact" placeholder="Enter Contact Number" value="<?php echo input::get('contact'); ?>">
+							<Input type="text" class="form-control" name="contact" placeholder="Enter Contact Number" value="<?php echo Input::get('contact'); ?>">
 
 
 						</div>
@@ -234,7 +234,7 @@ $positions = $user->get_positions();
 
 
 							<label for="email">Email</label>
-							<input type="email" class="form-control" name="email" value="<?php echo input::get('email'); ?>" placeholder="Enter Email Address">
+							<Input type="email" class="form-control" name="email" value="<?php echo Input::get('email'); ?>" placeholder="Enter Email Address">
 
 
 						</div>
@@ -317,7 +317,7 @@ $positions = $user->get_positions();
 
 
 							<label for="password">Password</label>
-							<input type="password" name="password" value="<?php echo input::get("password"); ?>" placeholder="Enter Password" class="form-control">
+							<Input type="password" name="password" value="<?php echo Input::get("password"); ?>" placeholder="Enter Password" class="form-control">
 
 						</div>
 
@@ -334,7 +334,7 @@ $positions = $user->get_positions();
 							<label for="password_repeat">Repeat Password</label>	
 
 
-							<input type="password"  name="password_repeat" class="form-control" value="<?php echo input::get("password_repeat"); ?>" placeholder="Repeat Password">
+							<Input type="password"  name="password_repeat" class="form-control" value="<?php echo Input::get("password_repeat"); ?>" placeholder="Repeat Password">
 						</div>
 
 					</div>
