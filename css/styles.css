@@ -329,3 +329,100 @@ template {
 [hidden] {
   display: none;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, p {
+  margin: 0px;
+  padding: 0px;
+}
+
+section {
+  padding: 20px 0px;
+}
+
+.title {
+  margin-bottom: 1em;
+  font-size: 2.5em;
+  font-weight: 300;
+}
+
+.bordered {
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.content-wrapper {
+  text-align: center;
+}
+
+.profile-face {
+  width: 80%;
+  padding-top: 80%;
+  background-size: cover;
+  background-position: center;
+  margin: 0 auto;
+}
+
+.emp-unit {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.emp-unit .face {
+  width: 80%;
+  padding-top: 80%;
+  background-color: orange;
+  background-size: cover;
+  background-position: center;
+  margin: 0 auto 0.6em;
+}
+
+.emp-unit .content .name {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+.emp-unit .content .position {
+  font-size: 1em;
+}
+
+.main-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.main-header .container .logo {
+  font-weight: 300;
+  font-size: 2.5em;
+}
+
+.main-header .container .logo span {
+  color: #38B0DE;
+  font-weight: 600;
+}
+
+.main-header .container nav a {
+  margin-left: 20px;
+  font-size: 20px;
+  color: black;
+}
+
+#admin_dashboard i {
+  font-size: 50px;
+}
+
+#admin_dashboard .admin-unit {
+  text-align: center;
+  padding: 50px 0px;
+}
+
+#admin_dashboard .admin-unit i {
+  margin-bottom: 20px;
+  color: #38B0DE;
+}
