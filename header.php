@@ -49,7 +49,7 @@ $user = new User;
 						$dash_path = (session::get('user') == "admin") ? "admin_dashboard.php" : "employee_dashboard.php";
  
 					 ?>
-					<a href="<?php echo $dash_path ?>">Profile</a>
+					<a href="profile.php">Profile</a>
 					<a href="<?php echo $dash_path ?>">Dashboard</a>
 					<a href="employee_timesheet.php">Timesheet</a>
 
