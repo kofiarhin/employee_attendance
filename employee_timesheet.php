@@ -19,13 +19,17 @@ $date = date("Y-m-d");
 
 
 $name = "";
+$profile_pic = "default.jpg";
 
 if($user->exist()) {
 
 	$name = $user->data()->first_name.' '.$user->data()->last_name;
-
+	$profile_pic = $user->data()->profile_pic;
 
 }
+
+
+//echo $profile_pic;
 
 
 ?>
@@ -88,7 +92,7 @@ if(Input::exist("post", "stampout_submit")) {
 		
 		<div class="col-md-3 offset-md-2">1q3tgrdfgcb
 
-			<div class="profile-face" style="background-image: url(img/default.jpg)">
+			<div class="profile-face" style="background-image: url(img/<?php echo $profile_pic; ?>)">
 				
 			</div>
 		</div>

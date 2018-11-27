@@ -83,7 +83,7 @@ require_once "header.php";
 
 									if($login) {
 
-										Redirect::to("employee_timesheet.php");
+										Redirect::to("employee_dashboard.php");
 									} else {
 
 										?>

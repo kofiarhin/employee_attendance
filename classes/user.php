@@ -1,7 +1,7 @@
 <?php 
 
 
-	class User {
+	class User Extends File {
 
 
 		private $db = null,
@@ -64,6 +64,91 @@
 
 			return false;
 
+
+		}
+
+
+		public function upload_file($user_id,  $file) {
+
+			$filename = $file['name'];
+			$tmp_name = $file['tmp_name'];
+			$error = $file['error'];
+			$size = $file['size'];
+
+
+			$allowed_files = array("jpg", "jpeg", "png");
+
+
+			$file_extention = explode('.', $filename);
+
+			$file_extention  = strtolower(end($file_extention));
+
+			if(in_array($file_extention, $allowed_files)) {
+
+				
+				if($size < 1000000) {
+
+					
+						$file_new_name = md5(uniqid()).".".$file_extention;
+
+						$file_destination = "img/".$file_new_name;
+
+
+
+						if(move_uploaded_file($tmp_name, $file_destination)) {
+
+							//update the user table
+
+								$update_fields = array(
+
+									'profile_pic' => $file_new_name
+
+								);
+
+
+								$update = $this->update($user_id, $update_fields);
+
+								if($update) {
+
+									session::flash("success", "Profile Picture Successfully Changed");
+
+									return true;
+								}
+
+						} else {
+
+
+							session::flash("error", "There was a problem uploading file try again");
+
+							return false;
+						}
+
+
+
+						
+
+				} else {
+
+
+					Session::flash("error", "File Size Too Huge");
+
+					return false;
+				}
+
+
+
+ 
+			} else {
+
+				Session::flash("error", "File Type not allowed");
+
+				return false;
+			}
+
+
+		
+
+			
 
 		}
 
