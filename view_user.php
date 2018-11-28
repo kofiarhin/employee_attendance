@@ -3,6 +3,8 @@
 
 require_once "header.php";
 
+//var_dump($user);
+
 $user_id = Input::get("user_id");
 
 
@@ -14,270 +16,270 @@ if(!$user_id) {
 	redirect::to("route.php");
 }
 
+$user  = new User($user_id);
+
+
+if(!$user->exist()) {
+
+	session::flash("error", "Employee Data cannot be found!");
+	Redirect::to("employees.php");
+}
+
+//var_dump($user->data());
+
+$person_pic = $user->data()->profile_pic;
+$first_name= $user->data()->first_name;
+$last_name = $user->data()->last_name;
+$position = $user->data()->position_name;
+$email = $user->data()->email;
+$contact= $user->data()->contact;
+
+//echo $person_pic;
+
+?>
+
+
+<section id="user">
 
 
 
 
-if($user->logged_in() || session::get("user") == "admin") {
+	<div class="container">
 
 
-	if(session::get("user") == "admin") {
+		<div class="row justify-content-center">
 
 
-		$user = new user($user_id);
+			<div class="col-md-3">
 
-		if($user->exist()) {
+				<div class="profile-face" style="background-image: url(img/<?php echo $person_pic; ?>)">
 
-			$first_name = $user->data()->first_name;
-			$last_name = $user->data()->last_name;
-			$email = $user->data()->email;
-			$contact = $user->data()->contact;
-			$position = $user->data()->position;
-			$grade = $user->data()->grade;
-			$person_pic  = $user->data()->profile_pic;
-
-			echo $position;
-		}
-
-
-	}
-
-	?>
-
-
-	<section id="user">
-
-
-
-
-		<div class="container">
-
-
-			<div class="row justify-content-center">
-
-
-				<div class="col-md-3">
-
-					<div class="profile-face" style="background-image: url(img/<?php echo $person_pic; ?>)">
-
-
-					</div>
-
-					<div class="button-wrapper">
-						
-						<a href="change_profile.php?user_id=<?php echo $user_id; ?>" class="btn btn-primary btn-lg btn-block">Change</a>
-						
-					</div>
 
 				</div>
 
+				<div class="button-wrapper">
 
-				<div class="col-md-5">
+					<a href="change_profile.php?user_id=<?php echo $user_id; ?>" class="btn btn-primary btn-lg btn-block">Change</a>
+
+				</div>
+
+			</div>
 
 
-					<?php 
+			<div class="col-md-5">
+
+
+				<?php 
 
 
 							//check for save changes
-					if(Input::exist('post', 'save_submit')) {
-
-						
-
-						$validation = new Validation;
-
-						$fields = array(
+				if(Input::exist('post', 'save_submit')) {
 
 
-							'first_name' => array(
 
-								'required' => true,
-								'min' => 2,
-								'max' => 50
+					$validation = new Validation;
 
-							),
+					$fields = array(
 
 
-							'last_name' => array(
+						'first_name' => array(
+
+							'required' => true,
+							'min' => 2,
+							'max' => 50
+
+						),
 
 
-								'required' => true,
-								'min' => 2, 
-								'max' => 50
-
-							),
+						'last_name' => array(
 
 
-							'email' => array(
+							'required' => true,
+							'min' => 2, 
+							'max' => 50
 
-								'required' => true
+						),
 
-							)
+
+						'email' => array(
+
+							'required' => true
+
+						)
+
+					);
+
+
+					$check = $validation->check($_POST, $fields);
+
+
+					if($check->passed()) {
+
+
+						$user_fields = array(
+
+							'first_name' => Input::get('first_name'),
+							'last_name' =>  Input::geT('last_name'),
+							'position' =>  input::get('position'),
+							'email' => Input::get('email')
 
 						);
 
 
-						$check = $validation->check($_POST, $fields);
+						$update = $user->update($user_id, $user_fields);
+
+						if($update) {
 
 
-						if($check->passed()) {
-
-
-							$user_fields = array(
-
-								'first_name' => Input::get('first_name'),
-								'last_name' =>  Input::geT('last_name'),
-								'position' =>  input::get('position'),
-								'email' => Input::get('email')
-
-							);
-
-
-							$update = $user->update($user_id, $user_fields);
-
-							if($update) {
-
-
-								Redirect::to("view_user.php?user_id=".$user_id);
-							}
+							Redirect::to("view_user.php?user_id=".$user_id);
+						}
 
 
 
 
 
-						} else {
+					} else {
 
 
 
-							foreach($check->errors() as $error) {
+						foreach($check->errors() as $error) {
 
 
-								?>
+							?>
 
-								<p class="alert alert-danger"><?php echo $error; ?></p>
+							<p class="alert alert-danger"><?php echo $error; ?></p>
 
 
-								<?php 
-							}
+							<?php 
 						}
 					}
+				}
 
 
-					?>
+				?>
 
 
-					<form action="" method="post">
+				<form action="" method="post">
 
 
-						<div class="form-group">
+					<div class="row">
+						
 
-							<label for="first_name">First Name</label>
-							<Input type="text" class="form-control" name="first_name" placeholder="First Name" value="<?php echo ucfirst($first_name); ?>">
+						<div class="col">
 
+							<div class="form-group">
+
+								<label for="first_name">First Name</label>
+								<Input type="text" class="form-control" name="first_name" placeholder="First Name" value="<?php echo ucfirst($first_name); ?>">
+
+
+							</div>
+
+						</div>
+
+						<div class="col">
+							
+							
+							<div class="form-group">
+
+								<label for="last_name">Last Name</label>
+								<Input type="text" class="form-control" name="last_name" placeholder="Last Name" value="<?php echo ucfirst($last_name); ?>">
+
+
+							</div>
 
 						</div>
 
 
-						<div class="form-group">
-							
-							<label for="last_name">Last Name</label>
-							<Input type="text" class="form-control" name="last_name" placeholder="Last Name" value="<?php echo ucfirst($last_name); ?>">
+
+					</div>
 
 
-						</div>
+					
 
 
-						<div class="form-group">
-							
+					
+
+
+					<div class="form-group">
+
 						<label for="staff_id">Staff ID</label>
 
 						<input type="text" disabled class="form-control" value="101860<?php echo $user_id; ?>">
 
-						</div>
+					</div>
 
 
 
-						<div class="form-group">
-							
-							<label for="first_name">Position</label>
-							
-							<input type="text" class="form-control" value="<?php echo $position; ?>" disabled>
+					<div class="form-group">
 
-							<span><a href="change_position.php?user_id=<?php echo $user_id; ?>" style="margin-left: 10px; margin-top:0.8em; display: inline-block">Change Position</a></span>
-							
-						</div>
+						<label for="first_name">Position</label>
 
+						<input type="text" class="form-control" value="<?php echo $position; ?>" disabled>
 
+						<span><a href="change_position.php?user_id=<?php echo $user_id; ?>" style="margin-left: 10px; margin-top:0.8em; display: inline-block">Change Position</a></span>
 
-						<div class="form-group">
-							
-							<label for="first_name">Email</label>
-							<Input type="text" class="form-control" name="email" placeholder="Email" value="<?php echo $email; ?>">
-
-							<span><a href="change_email.php?user_id=<?php echo $user_id; ?>" style="margin-left: 10px; margin-top:0.8em; display: inline-block">Change Email</a></span>
-
-
-						</div>
+					</div>
 
 
 
-						<div class="form-group">
-							
-							<label for="first_name">Contact</label>
-							<Input type="text" class="form-control" name="contact" placeholder="First Name" value=<?php echo "0".$contact; ?>>
+					<div class="form-group">
+
+						<label for="first_name">Email</label>
+						<Input type="text" class="form-control" name="email" placeholder="Email" value="<?php echo $email; ?>" disabled>
+
+						<span><a href="change_email.php?user_id=<?php echo $user_id; ?>" style="margin-left: 10px; margin-top:0.8em; display: inline-block">Change Email</a></span>
 
 
-						</div>
+					</div>
 
 
-						<div class="button-wrapper">
-							
-							
-							<button class="btn btn-primary" type="submit" name="save_submit">Save Change</button>
 
-							<?php 
+					<div class="form-group">
 
-
-							if(session::get('user') == "admin") {
+						<label for="first_name">Contact</label>
+						<Input type="text" class="form-control" name="contact" placeholder="First Name" value=<?php echo "0".$contact; ?>>
 
 
-								?>
+					</div>
 
-								<button class="btn btn-danger" type="submit" name="delete_submit">Delete</button>
 
-								<?php
-							}
+					<div class="button-wrapper">
+
+
+						<button class="btn btn-primary" type="submit" name="save_submit">Save Change</button>
+
+						<?php 
+
+
+						if(session::get('user') == "admin") {
+
 
 							?>
 
+							<button class="btn btn-danger" type="submit" name="delete_submit">Delete</button>
 
-						</div>
+							<?php
+						}
+
+						?>
 
 
-					</form>
+					</div>
 
 
-				</div>
+				</form>
 
 
 			</div>
 
 
-
 		</div>
 
 
-	</section>
 
-	<?php 
-
+	</div>
 
 
-}	 else {
+</section>
 
-
-
-	echo "unathorized access";
-}
-
-
-?>

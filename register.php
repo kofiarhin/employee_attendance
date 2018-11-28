@@ -73,18 +73,12 @@ $positions = $user->get_positions();
 
 					),
 
-					'position' => array(
+					'position_id' => array(
 
 
 						'required' => true
 					),
 
-
-					'grade' => array(
-
-
-							'required' => true
-					) ,
 
 
 					'password' => array(
@@ -120,9 +114,8 @@ $positions = $user->get_positions();
 						'first_name' => Input::get('first_name'),
 						'last_name' =>  Input::get('last_name'),
 						'email' =>  Input::get('email'), 
-						'contact' => Input::get('contact'),
-						'position' => Input::get("position"),
-						'grade' => (int) Input::get('grade'),
+						'contact' => (int) Input::get('contact'),
+						'position_id' => (int) Input::get("position_id"),
 						'password'  => $password,
 						'salt' => $salt,
 						'profile_pic' => 'default.jpg',
@@ -293,7 +286,7 @@ $positions = $user->get_positions();
 							
 							<label for="position">Position</label>
 
-							<select name="position" class='form-control'>
+							<select name="position_id" class='form-control'>
 								
 								<?php 
 
@@ -303,7 +296,7 @@ $positions = $user->get_positions();
 
 											?>
 
-										<option value="<?php echo $position->position_name; ?>"><?php echo $position->position_name; ?></option>
+										<option value="<?php echo $position->id; ?>"><?php echo $position->position_name; ?></option>
 											<?php 
 										}
 
@@ -316,34 +309,6 @@ $positions = $user->get_positions();
 						
 
 					</div>
-
-					<div class="col">
-						
-						<div class="form-group">
-							
-							<label for="grade">Grade</label>
-
-							<select name="grade" id="" class="form-control">
-								
-								<?php 
-
-										for($i = 1; $i < 6; $i++) {
-
-											?>
-					<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-
-											<?php 
-										}
-
-								 ?>
-							</select>
-
-						</div>
-					</div>
-
-
-				</div>
-
 
 				
 

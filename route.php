@@ -3,16 +3,24 @@
 	require_once "core/init.php";
 
 
-	if(session::exist("user") && session::get("user") == "admin") {
+	$user = new User;
 
 
-		redirect::to("admin_dashboard.php");
+
+
+
+	if(!$user->logged_in()) {
+
+		Redirect::to("login.php");
 	}
 
 
 
+	if($user->has_permission("admin")) {
 
-	else if(session::exist('user')) {
+		Redirect::to("admin_dashboard.php");
+	} else {
 
-		redirect::to("employee_dashboard.php");
+
+		Redirect::to("employee_dashboard.php");
 	}

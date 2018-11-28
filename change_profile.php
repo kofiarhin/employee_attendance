@@ -43,7 +43,15 @@ $user_id = Input::get('user_id');
 
 								$upload = $user->upload_file($user_id, $file);
 
-								Redirect::to("change_profile.php?user_id=".$user_id);
+								if($upload) {
+
+									Redirect::to("route.php");
+								} else {
+
+									Session::flash("error",  "There was a problem updating profile");
+
+									Redirect::to("change_profile.php?user_id=".$user_id);
+								}
 
 
 								/*

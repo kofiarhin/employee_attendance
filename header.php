@@ -36,23 +36,24 @@ $user = new User;
 
 			<nav>
 				
-
-
 				<?php 
 
-				if($user->logged_in() || session::exist("user") ) {
+				if($user->logged_in()) {
+
+
+					$dashpath = ($user->has_permission("admin")) ? "admin_dashboard.php" : "employee_dashboard.php";
+
+					//echo $dashpath;
 
 					?>
 
-					<?php 
 
-						$dash_path = (session::get('user') == "admin") ? "admin_dashboard.php" : "employee_dashboard.php";
- 
-					 ?>
-					<a href="profile.php">Profile</a>
-					<a href="<?php echo $dash_path ?>">Dashboard</a>
-					<a href="employee_timesheet.php">Timesheet</a>
+					<a href="<?php echo $dashpath; ?>">Dashboard</a>
 
+
+					<a href="profile.php?user_id=<?php echo $user->data()->id; ?>"><?php echo ucfirst($user->data()->first_name); ?></a>
+					
+					<a href="messages.php">Messages</a>
 					<a href="logout.php">Logout</a>
 
 					<?php 
@@ -67,8 +68,8 @@ $user = new User;
 				}
 
 
-
 				?>
+
 
 			</nav>
 
@@ -80,6 +81,6 @@ $user = new User;
 
 	<?php 
 
-		include "session_messages.php";
+	include "session_messages.php";
 
-	 ?>
+	?>

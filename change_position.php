@@ -51,15 +51,21 @@ $positions = $user->get_positions();
 
 							$fields = array(
 
-								'position' => input::get('position')
+								'position_id' => input::get('position_id')
 
 							);
 
 
+							var_dump($fields);
 
-							
 
-							$update = $user->update($user_id, $fields);
+
+							//var_dump($fields);	
+
+								$update = $user->update($user_id, $fields);
+
+
+
 
 
 							if($update) {
@@ -68,6 +74,13 @@ $positions = $user->get_positions();
 
 								Redirect::to("view_user.php?user_id=".$user_id);
 
+							} else {
+
+								?>
+
+						<p class="alert alert-danger">Error. Contact the administrator!s</p>
+
+								<?php 
 							}
 
 
@@ -80,7 +93,7 @@ $positions = $user->get_positions();
 				<div class="form-group">
 
 					<label for="position">Position</label>
-					<select name="position" class="form-control">
+					<select name="position_id" class="form-control">
 						
 
 						<?php if($positions){
@@ -92,7 +105,7 @@ $positions = $user->get_positions();
 
 								?>
 
-								<option value="<?php echo $position->position_name; ?>"><?php echo $position->position_name; ?></option>
+								<option value="<?php echo $position->id; ?>"><?php echo $position->position_name; ?></option>
 
 
 								<?php 

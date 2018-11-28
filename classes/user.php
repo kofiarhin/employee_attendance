@@ -37,6 +37,8 @@
 			} else {
 
 
+
+
 				$this->find($user);
 			}
 
@@ -76,6 +78,9 @@
 			$size = $file['size'];
 
 
+
+
+
 			$allowed_files = array("jpg", "jpeg", "png");
 
 
@@ -99,6 +104,8 @@
 
 							//update the user table
 
+
+
 								$update_fields = array(
 
 									'profile_pic' => $file_new_name
@@ -108,7 +115,12 @@
 
 								$update = $this->update($user_id, $update_fields);
 
+
+
 								if($update) {
+
+
+									
 
 									session::flash("success", "Profile Picture Successfully Changed");
 
@@ -226,7 +238,20 @@
 		public function get_all_users() {
 
 
-				$users = $this->db->get("users");
+				$sql = "select *,
+
+						users.id as user_id
+						from users
+						
+						inner join positions
+						on users.position_id = positions.id
+
+
+						order by users.created_on desc
+
+						";
+
+				$users = $this->db->query($sql);
 
 				if($users->count()) {
 
@@ -247,24 +272,106 @@
 		}
 
 
-		public function login($id, $password) {
+		public function find($user) {
 
-				$emp_id  = substr($id, 6);
+			$field = is_numeric($user) ? "id" : "email";
 
-				$user = $this->find($emp_id);
+			//echo $field;
+
+			$sql= "select 
+			users.id, 
+			users.first_name,
+			users.last_name,
+			users.email,
+			users.password,
+			users.salt,
+			users.profile_pic,
+			users.created_on,
+			users.contact, 
+
+
+			positions.id as position_id,
+			positions.position_name,
+			positions.permissions
+
+
+			from users
+
+			inner join positions
+
+			on users.position_id = positions.id
+
+
+			where users.{$field} = ?";
+
+
+			$query_field = array(
+
+				"{$field}" => $user
+			);
+
+			
+
+
+
+			$query = $this->db->query($sql, $query_field);
+
+
+			if($query->count()) {
+
+				$this->data = $query->first();
+
+
+				//var_dump($this->data);
+
+
+				return true;
+			}
+
+			return false;
+
+			
+		}
+
+
+
+		public function login($user_input, $password ) {
+
+
+				//if userput is a number generate the id from the employee id;
+
+				//10186010  first six is the employee id and last is the user id from the database
+
+
+				$user = $this->find($user_input);
 
 
 				if($user) {
 
-						if($this->data()->password == Hash::make($password, $this->data()->salt)) {
+						$db_password = $this->data()->password;
+						$db_salt = $this->data()->salt;
 
-							session::put($this->session_name, $this->data()->id);
+
+						if($db_password == Hash::make($password, $db_salt)) {
+
+
+							Session::put($this->session_name, $this->data()->id);
+
+							echo "you are logged in";
+
 
 							return true;
+
 						}
+
 				}
 
+
+
 				return false;
+
+
+
 		}
 
 
@@ -274,20 +381,48 @@
 		}
 
 
-		public function find($user) {
+		
 
-			$field =  is_numeric($user)  ? 'id' : "email";
 
-			$user = $this->db->get("users", array($field, '=', $user));
+		public function has_permission($key) {
 
-			if($user->count()) {
+			if(!Session::exist($this->session_name)) {
 
-				$this->data = $user->first();
-
-				return true;
+				echo "error";
+				return false;
 			}
 
-			return false;
+			if(!$this->exist()) {
+
+				return false;
+			}
+
+
+				$position_id = $this->data()->position_id;
+
+
+				$check = $this->db->get("positions", array('id', '=', $position_id));
+
+				if($check->count()) {
+
+					$permissions = json_decode($check->first()->permissions, true);
+
+				if(isset($permissions[$key])) {
+
+					return true;
+				}
+
+
+
+
+				}
+
+
+
+				return false;
+
+
+
 		}
 
 

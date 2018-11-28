@@ -41,3 +41,5 @@
 
 	require_once dirname(__dir__) ."\\vendor\\autoload.php";
 
+	include "functions/functions.php";
+
