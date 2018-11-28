@@ -37,6 +37,8 @@
 			} else {
 
 
+
+
 				$this->find($user);
 			}
 
@@ -76,6 +78,9 @@
 			$size = $file['size'];
 
 
+
+
+
 			$allowed_files = array("jpg", "jpeg", "png");
 
 
@@ -99,6 +104,8 @@
 
 							//update the user table
 
+
+
 								$update_fields = array(
 
 									'profile_pic' => $file_new_name
@@ -108,7 +115,12 @@
 
 								$update = $this->update($user_id, $update_fields);
 
+
+
 								if($update) {
+
+
+									
 
 									session::flash("success", "Profile Picture Successfully Changed");
 
@@ -226,7 +238,20 @@
 		public function get_all_users() {
 
 
-				$users = $this->db->get("users");
+				$sql = "select *,
+
+						users.id as user_id
+						from users
+						
+						inner join positions
+						on users.position_id = positions.id
+
+
+						order by users.created_on desc
+
+						";
+
+				$users = $this->db->query($sql);
 
 				if($users->count()) {
 
@@ -247,6 +272,69 @@
 		}
 
 
+		public function find($user) {
+
+			$field = is_numeric($user) ? "id" : "email";
+
+			//echo $field;
+
+			$sql= "select 
+			users.id, 
+			users.first_name,
+			users.last_name,
+			users.email,
+			users.password,
+			users.salt,
+			users.profile_pic,
+			users.created_on,
+			users.contact, 
+
+
+			positions.id as position_id,
+			positions.position_name,
+			positions.permissions
+
+
+			from users
+
+			inner join positions
+
+			on users.position_id = positions.id
+
+
+			where users.{$field} = ?";
+
+
+			$query_field = array(
+
+				"{$field}" => $user
+			);
+
+			
+
+
+
+			$query = $this->db->query($sql, $query_field);
+
+
+			if($query->count()) {
+
+				$this->data = $query->first();
+
+
+				//var_dump($this->data);
+
+
+				return true;
+			}
+
+			return false;
+
+			
+		}
+
+
+
 		public function login($user_input, $password ) {
 
 
@@ -257,7 +345,6 @@
 
 				$user = $this->find($user_input);
 
-				var_dump($user);
 
 				if($user) {
 
@@ -294,67 +381,7 @@
 		}
 
 
-		public function find($user) {
-
-			$field = is_numeric($user) ? "id" : "email";
-
-			$sql= "select * from users 
-	
-			
-
-			inner join positions
-
-			on users.position_id = positions.id
-
-
-			where users.{$field} = ?";
-
-
-			$query_field = array(
-
-				"{$field}" => $user
-			);
-
-
-			//var_dump($query_field);
-
-			$query = $this->db->query($sql, $query_field);
-
-			if($query->count()) {
-
-				$this->data = $query->first();
-
-				return true;
-			}
-
-			
-
-			
-
-			return false;
-
-
-
-			//return false;
- 
-			/*
-
-			$field =  is_numeric($user)  ? 'id' : "email";
-
-			$user = $this->db->get("users", array($field, '=', $user));
-
-			if($user->count()) {
-
-				$this->data = $user->first();
-
-				return true;
-			}
-
-			return false;
-
-			*/
-		}
-
+		
 
 
 		public function has_permission($key) {

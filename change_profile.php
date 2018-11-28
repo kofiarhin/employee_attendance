@@ -45,7 +45,7 @@ $user_id = Input::get('user_id');
 
 								if($upload) {
 
-									Redirect::to("profile.php");
+									Redirect::to("route.php");
 								} else {
 
 									Session::flash("error",  "There was a problem updating profile");

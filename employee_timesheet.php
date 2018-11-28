@@ -2,11 +2,19 @@
 
 
 require_once "header.php";
-
+use Carbon\Carbon;
 
 
 $user = new User;
 $timesheet = new Timesheet;
+
+
+$current_month  = Get_current_month();
+
+
+
+
+//check if user is logged in
 
 if(!$user->logged_in()) {
 
@@ -14,6 +22,9 @@ if(!$user->logged_in()) {
 }
 
 
+
+
+//get user id;
 $user_id = session::get('user');
 $date = date("Y-m-d");
 
@@ -62,6 +73,7 @@ if(Input::exist('post', 'stampin_submit')) {
 	$stamp_in = $timesheet->stamp_in($fields);
 
 
+
 }
 
 
@@ -88,14 +100,9 @@ if(Input::exist("post", "stampout_submit")) {
 <div class="container">
 
 
-	<div class="row">
+	<div class="row justify-content-center">
 		
-		<div class="col-md-3 offset-md-2">1q3tgrdfgcb
-
-			<div class="profile-face" style="background-image: url(img/<?php echo $profile_pic; ?>)">
-				
-			</div>
-		</div>
+		
 		<div class="col-md-4">
 
 			<div class="content-wrapper">
@@ -113,13 +120,14 @@ if(Input::exist("post", "stampout_submit")) {
 					$hours_worked = $timesheet->get_hours_worked($user_id, $date);
 
 					$unit = "";
+
 					if($hours_worked) {
 
 						$unit = ($hours_worked > 1 ) ?  "hours" : "hour";
 
 						?>
 
-						<h1 class="title">Awosome You Worked <?php echo $hours_worked ?> <?php echo $unit; ?> Today!</h1>
+						<h1 class="sub-title">Total Hours for Today: <strong> <?php echo $hours_worked ?> <?php echo $unit; ?></strong> </h1>
 
 						<?php  
 					}else {
@@ -215,7 +223,81 @@ if(Input::exist("post", "stampout_submit")) {
 	</div>
 
 
-	
+
+
+	<h2 class="sub-title text-center">Your Timesheet for <?php echo $current_month; ?></h2>
+
+
+	<div class="row justify-content-center">
+		
+
+			<table class="table">
+				
+				<thead>
+					
+					<tr>
+						
+						<th>Date</th>
+						<th>Stamp In</th>
+						<th>Stamp Out</th>
+						<th>Total Hours</th>
+					</tr>
+				</thead>
+
+				<tbody>
+						
+						<tr>
+							<td>1st Aug</td>
+							<td>8:00</td>
+							<td>4:00</td>
+							<td>8</td>
+						</tr>
+
+
+						<tr>
+							<td>2nd Aug</td>
+							<td>8:00</td>
+							<td>4:00</td>
+							<td>8</td>
+						</tr>
+
+
+						<tr>
+							<td>4th Aug</td>
+							<td>8:00</td>
+							<td>4:00</td>
+							<td>8</td>
+						</tr>
+
+
+						<tr>
+							<td>5th Aug</td>
+							<td>8:00</td>
+							<td>4:00</td>
+							<td>8</td>
+						</tr>
+
+						<tr>
+							<td>6th Aug</td>
+							<td>8:00</td>
+							<td>4:00</td>
+							<td>8</td>
+						</tr>
+
+						<tr>
+							<td></td>
+							<td></td>
+							<td><strong>Total Hours</strong></td>
+							<td><strong>120</strong></td>
+						</tr>
+
+
+				</tbody>
+
+			</table>
+
+
+	</div>
 
 
 

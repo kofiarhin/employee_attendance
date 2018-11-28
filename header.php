@@ -38,46 +38,37 @@ $user = new User;
 				
 				<?php 
 
-					if($user->logged_in()) {
-
-							?>
-
-							<?php 
-
-									if($user->has_permission("admin")) {
-
-										?>
-
-			<a href="admin_dashboard.php">Dashboard</a>
-
-										<?php 
-										
-									} else {
+				if($user->logged_in()) {
 
 
-										?>
+					$dashpath = ($user->has_permission("admin")) ? "admin_dashboard.php" : "employee_dashboard.php";
 
-		<a href="profile.php?user_id=<?php echo $user->data()->id; ?>">Profile</a>
+					//echo $dashpath;
 
-										<?php 
-									}
-
-							 ?>
-			<a href="logout.php">Logout</a>
-
-							<?php 
-					} else {
+					?>
 
 
-						?>
-
-		<a href="login.php">Login</a>
-
-						<?php 
-					}
+					<a href="<?php echo $dashpath; ?>">Dashboard</a>
 
 
-				 ?>
+					<a href="profile.php?user_id=<?php echo $user->data()->id; ?>"><?php echo ucfirst($user->data()->first_name); ?></a>
+					
+					<a href="messages.php">Messages</a>
+					<a href="logout.php">Logout</a>
+
+					<?php 
+				} else {
+
+
+					?>
+
+					<a href="login.php">Login</a>
+
+					<?php 
+				}
+
+
+				?>
 
 
 			</nav>
@@ -90,6 +81,6 @@ $user = new User;
 
 	<?php 
 
-		include "session_messages.php";
+	include "session_messages.php";
 
-	 ?>
+	?>

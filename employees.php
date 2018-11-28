@@ -9,7 +9,7 @@ $datas = $user->get_all_users();
 
 
 
-		//var_dump($datas);
+//var_dump($datas);
 
 ?>
 
@@ -32,12 +32,12 @@ $datas = $user->get_all_users();
 
 			foreach($datas as $data) {
 
-
+					//var_dump($data);
 
 					$name = $data->first_name. " ".$data->last_name;
 					$person_pic = $data->profile_pic;
-					$position = $data->position;
-					$person_id = $data->id;
+					$position = $data->position_name;
+					echo $person_id = $data->user_id;
 
 
 				?>

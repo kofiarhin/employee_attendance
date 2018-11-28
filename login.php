@@ -94,7 +94,12 @@ require_once "header.php";
 
 							} else {
 
+
+								//loggin in by email  address
+
+
 								$login = $user->login($user_input, $password);
+
 
 								if(!$login) {
 

@@ -6,6 +6,9 @@
 	$user = new User;
 
 
+
+
+
 	if(!$user->logged_in()) {
 
 		Redirect::to("login.php");

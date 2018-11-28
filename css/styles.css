@@ -334,6 +334,10 @@ template {
   box-sizing: border-box;
 }
 
+html, body {
+  padding-bottom: 50px;
+}
+
 h1, h2, h3, h4, h5, p {
   margin: 0px;
   padding: 0px;
@@ -352,6 +356,7 @@ section {
 .sub-title {
   font-weight: 300;
   font-size: 1.5em;
+  margin-bottom: 20px;
 }
 
 .bordered {
@@ -398,6 +403,20 @@ section {
 
 .emp-unit .content .position {
   font-size: 1em;
+}
+
+.fa {
+  font-size: 50px;
+}
+
+.admin-unit {
+  text-align: center;
+  padding: 50px 0px;
+}
+
+.admin-unit i {
+  margin-bottom: 20px;
+  color: #38B0DE;
 }
 
 .main-header .container {
