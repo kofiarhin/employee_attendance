@@ -36,39 +36,49 @@ $user = new User;
 
 			<nav>
 				
-
-
 				<?php 
 
-				if($user->logged_in() || session::exist("user") ) {
+					if($user->logged_in()) {
 
-					?>
+							?>
 
-					<?php 
+							<?php 
 
-						$dash_path = (session::get('user') == "admin") ? "admin_dashboard.php" : "employee_dashboard.php";
- 
-					 ?>
-					<a href="profile.php">Profile</a>
-					<a href="<?php echo $dash_path ?>">Dashboard</a>
-					<a href="employee_timesheet.php">Timesheet</a>
+									if($user->has_permission("admin")) {
 
-					<a href="logout.php">Logout</a>
+										?>
 
-					<?php 
-				} else {
+			<a href="admin_dashboard.php">Dashboard</a>
+
+										<?php 
+										
+									} else {
 
 
-					?>
+										?>
 
-					<a href="login.php">Login</a>
+		<a href="profile.php?user_id=<?php echo $user->data()->id; ?>">Profile</a>
 
-					<?php 
-				}
+										<?php 
+									}
+
+							 ?>
+			<a href="logout.php">Logout</a>
+
+							<?php 
+					} else {
 
 
+						?>
 
-				?>
+		<a href="login.php">Login</a>
+
+						<?php 
+					}
+
+
+				 ?>
+
 
 			</nav>
 

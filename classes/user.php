@@ -247,24 +247,44 @@
 		}
 
 
-		public function login($id, $password) {
+		public function login($user_input, $password ) {
 
-				$emp_id  = substr($id, 6);
 
-				$user = $this->find($emp_id);
+				//if userput is a number generate the id from the employee id;
 
+				//10186010  first six is the employee id and last is the user id from the database
+
+
+				$user = $this->find($user_input);
+
+				var_dump($user);
 
 				if($user) {
 
-						if($this->data()->password == Hash::make($password, $this->data()->salt)) {
+						$db_password = $this->data()->password;
+						$db_salt = $this->data()->salt;
 
-							session::put($this->session_name, $this->data()->id);
+
+						if($db_password == Hash::make($password, $db_salt)) {
+
+
+							Session::put($this->session_name, $this->data()->id);
+
+							echo "you are logged in";
+
 
 							return true;
+
 						}
+
 				}
 
+
+
 				return false;
+
+
+
 		}
 
 
@@ -275,6 +295,49 @@
 
 
 		public function find($user) {
+
+			$field = is_numeric($user) ? "id" : "email";
+
+			$sql= "select * from users 
+	
+			
+
+			inner join positions
+
+			on users.position_id = positions.id
+
+
+			where users.{$field} = ?";
+
+
+			$query_field = array(
+
+				"{$field}" => $user
+			);
+
+
+			//var_dump($query_field);
+
+			$query = $this->db->query($sql, $query_field);
+
+			if($query->count()) {
+
+				$this->data = $query->first();
+
+				return true;
+			}
+
+			
+
+			
+
+			return false;
+
+
+
+			//return false;
+ 
+			/*
 
 			$field =  is_numeric($user)  ? 'id' : "email";
 
@@ -288,6 +351,51 @@
 			}
 
 			return false;
+
+			*/
+		}
+
+
+
+		public function has_permission($key) {
+
+			if(!Session::exist($this->session_name)) {
+
+				echo "error";
+				return false;
+			}
+
+			if(!$this->exist()) {
+
+				return false;
+			}
+
+
+				$position_id = $this->data()->position_id;
+
+
+				$check = $this->db->get("positions", array('id', '=', $position_id));
+
+				if($check->count()) {
+
+					$permissions = json_decode($check->first()->permissions, true);
+
+				if(isset($permissions[$key])) {
+
+					return true;
+				}
+
+
+
+
+				}
+
+
+
+				return false;
+
+
+
 		}
 
 

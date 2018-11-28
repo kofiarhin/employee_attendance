@@ -12,8 +12,6 @@ require_once "header.php";
 
 
 
-	if(session::exist(config::get('session/session_name')) && session::get(config::get('session/session_name'))  == "admin") {
-
 
 		?>
 
@@ -79,7 +77,7 @@ require_once "header.php";
 		<?php 
 
 
-	}
+
 
 
 	?>

@@ -3,6 +3,17 @@
 require_once "header.php";
 
 
+	//generate admin credentials
+	/*
+	$salt = "dfas;kfkdjsadfdafd";
+	$password = Hash::make("password", $salt);
+
+	echo $password;
+	echo "<br>";
+	echo $salt;	
+
+	*/
+
 ?>
 
 <section id="login">
@@ -24,7 +35,7 @@ require_once "header.php";
 
 					$fields = array(
 
-						'employee_id' => array(
+						'user_input' => array(
 
 
 							'required' =>  true
@@ -42,77 +53,61 @@ require_once "header.php";
 					if($check->passed()) {
 
 
-							$employee_id = Input::get("employee_id");
+							$user_input = input::get("user_input");
 
 							$password = Input::get("password");
 
-							if($employee_id == "admin" && $password == "password") {
+							if(is_numeric($user_input)) {
 
+								$prefix = substr($user_input, 0, 6);
 
-										Session::put(config::get("session/session_name"), "admin");
+								//echo $prefix;
 
-										Redirect::to("admin_dashboard.php");
-							} else {
+								$pattern = array(101860, 200300);
 
+								if(in_array($prefix, $pattern)) {
 
+									$user_id = substr($user_input, 6);
+								
 
+									$login = $user->login($user_id, $password);
 
-								if(!is_numeric(input::get("employee_id"))) {
+									if(!$login) {
 
+										//echo "here";
 
-									session::flash("error", "Employee ID must be a number");
+										Session::flash("error", "Invalid Staff ID/Password Combination");
 
-									Redirect::to("login.php");
+										Redirect::to("login.php");
 
-
-									exit();
-
-								}
-
-
-								$user = new User;
-
-								$emp_id = Input::get("employee_id");
-
-								$check = $user->check_id($emp_id);
-
-
-								if($check->passed()) {
-
-									$login = $user->login($emp_id,  $password);
-
-									if($login) {
-
-										Redirect::to("employee_dashboard.php");
 									} else {
 
-										?>
-
-		<p class="alert alert-danger">Invalid ID/Password Combination. Try Again</p>
-
-
-										<?php 
+										Redirect::to("route.php");
 									}
-								} else  {
+								} else {
 
-									foreach($check->errors() as $error) {
+									Session::flash("error", "Invalid Staff Id Format");
 
-
-										?>
-
-				<p class="alert alert-danger"><?php echo $error; ?></p>
-
-										<?php 
-									}
+									Redirect::to("login.php");
 								}
 
 
+							} else {
+
+								$login = $user->login($user_input, $password);
+
+								if(!$login) {
+
+									Session::flash("error", "Invalid Email/Password Combination");
+
+									Redirect::to("login.php?user_input=".$user_input);
+								} {
+
+									Redirect::to("route.php");
+								}
+
 							
-
-
-
 							}
-
 
 					} else {
 
@@ -128,14 +123,19 @@ require_once "header.php";
 
 				}
 
+
+
+
 				?>
+
+
 
 				<form action="" method="post" class="bordered">
 
 					<div class="form-group">
 						
-						<label for="email">Employee ID</label>
-						<input type="text" name="employee_id" placeholder="Enter Your ID" value="<?php echo Input::get('employee_id'); ?>" class="form-control">
+						<label for="email">Email or Employee ID</label>
+						<input type="text" name="user_input" placeholder="Enter Your ID" value="<?php echo Input::get('user_input'); ?>" class="form-control">
 					</div>
 
 					<div class="form-group">
