@@ -26,38 +26,33 @@
  		<div class="col-md-3 admin-unit">
 
 
- 			<i class="fa fa-stamp"></i>
+ 			<i class="fa fa-address-card"></i>
  			
- 			<p class="lead"><a href="employee_timesheet.php">Stamp In/Out</a></p>
+ 			<p class="lead"><a href="timecard.php">Stamp In/Out</a></p>
  		</div>
 
 
 
  		<div class="col-md-3 admin-unit">
 
- 			<i class="fa fa-user"></i>
- 			<p class="lead"><a href="register.php">Register Employee</a></p>
+ 			<i class="fa fa-calendar"></i>
+ 			<p class="lead"><a href="register.php">Timesheet</a></p>
 
  		</div>
 
 
- 		<div class="col-md-3 admin-unit">
- 			
- 				<i class="fa fa-users"></i>
- 				<p class="lead"><a href="employees.php">Employees</a></p>
 
- 		</div>
+		
+		<div class="col-md-3 admin-unit">
 
+			<i class="fa fa-envelope"></i>
+			<p class="lead"><a href="register.php">Leave Application</a></p>
 
- 		<div class="col-md-3 admin-unit">
-
-
- 			<i class="fa fa-bullhorn"></i>
- 			
- 			<p class="lead"><a href="announcements.php">Announcements</a></p>
- 		</div>
+		</div>
 
 
+
+ 		
  		
 
 

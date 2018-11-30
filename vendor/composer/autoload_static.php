@@ -12,6 +12,7 @@ class ComposerStaticInit1f3be9c81b86f584ba53d11d4bd4132a
         'Db' => __DIR__ . '/../..' . '/classes/db.php',
         'File' => __DIR__ . '/../..' . '/classes/file.php',
         'Hash' => __DIR__ . '/../..' . '/classes/hash.php',
+        'Helper' => __DIR__ . '/../..' . '/classes/Helper.php',
         'Input' => __DIR__ . '/../..' . '/classes/input.php',
         'Redirect' => __DIR__ . '/../..' . '/classes/redirect.php',
         'Session' => __DIR__ . '/../..' . '/classes/session.php',

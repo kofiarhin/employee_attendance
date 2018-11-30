@@ -5,21 +5,21 @@ require_once "header.php";
 
 //var_dump($user);
 
-$user_id = Input::get("user_id");
+$person_id = Input::get("user_id");
 
 
 $positions = $user->get_positions();
 
-if(!$user_id) {
+if(!$person_id) {
 
 
-	redirect::to("route.php");
+	Redirect::to("route.php");
 }
 
-$user  = new User($user_id);
+$person  = new User($person_id);
 
 
-if(!$user->exist()) {
+if(!$person->exist()) {
 
 	session::flash("error", "Employee Data cannot be found!");
 	Redirect::to("employees.php");
@@ -27,12 +27,12 @@ if(!$user->exist()) {
 
 //var_dump($user->data());
 
-$person_pic = $user->data()->profile_pic;
-$first_name= $user->data()->first_name;
-$last_name = $user->data()->last_name;
-$position = $user->data()->position_name;
-$email = $user->data()->email;
-$contact= $user->data()->contact;
+$person_pic = $person->data()->profile_pic;
+$first_name= $person->data()->first_name;
+$last_name = $person->data()->last_name;
+$position = $person->data()->position_name;
+$email = $person->data()->email;
+$contact= $person->data()->contact;
 
 //echo $person_pic;
 
@@ -59,7 +59,7 @@ $contact= $user->data()->contact;
 
 				<div class="button-wrapper">
 
-					<a href="change_profile.php?user_id=<?php echo $user_id; ?>" class="btn btn-primary btn-lg btn-block">Change</a>
+					<a href="change_profile.php?user_id=<?php echo $person_id; ?>" class="btn btn-primary btn-lg btn-block">Change</a>
 
 				</div>
 
@@ -72,7 +72,7 @@ $contact= $user->data()->contact;
 				<?php 
 
 
-							//check for save changes
+				//check for save changes
 				if(Input::exist('post', 'save_submit')) {
 
 
@@ -100,12 +100,12 @@ $contact= $user->data()->contact;
 
 						),
 
-
-						'email' => array(
+						'contact' => array(
 
 							'required' => true
 
 						)
+
 
 					);
 
@@ -120,16 +120,17 @@ $contact= $user->data()->contact;
 
 							'first_name' => Input::get('first_name'),
 							'last_name' =>  Input::geT('last_name'),
-							'position' =>  input::get('position'),
-							'email' => Input::get('email')
+							'contact' => Input::get("contact")
 
 						);
 
 
 						$update = $user->update($user_id, $user_fields);
 
-						if($update) {
 
+
+
+						if($update) {
 
 							Redirect::to("view_user.php?user_id=".$user_id);
 						}
@@ -156,10 +157,41 @@ $contact= $user->data()->contact;
 				}
 
 
+				//check if delete button
+
+
+				if(Input::exist("post", "delete_submit")) {
+
+						
+				
+							$delete = $user->delete($person_id);
+
+							if($delete) {
+
+								Redirect::to("employees.php");
+							} else {
+
+								?>
+
+		<p class="alert alert-danger">There was a problem deleting account!</p>
+
+								<?php  
+							}
+
+
+
+				}
+
+
 				?>
 
 
 				<form action="" method="post">
+
+
+					<!--====  hidden fields=======-->
+
+					<input type="hidden" name="person_id" value="<?php echo input::get('user_id '); ?>">
 
 
 					<div class="row">
@@ -205,7 +237,7 @@ $contact= $user->data()->contact;
 
 						<label for="staff_id">Staff ID</label>
 
-						<input type="text" disabled class="form-control" value="101860<?php echo $user_id; ?>">
+						<input type="text" disabled class="form-control" value="101860<?php echo $person_id; ?>">
 
 					</div>
 
@@ -217,7 +249,7 @@ $contact= $user->data()->contact;
 
 						<input type="text" class="form-control" value="<?php echo $position; ?>" disabled>
 
-						<span><a href="change_position.php?user_id=<?php echo $user_id; ?>" style="margin-left: 10px; margin-top:0.8em; display: inline-block">Change Position</a></span>
+						<span><a href="change_position.php?user_id=<?php echo $person_id; ?>" style="margin-left: 10px; margin-top:0.8em; display: inline-block">Change Position</a></span>
 
 					</div>
 
@@ -228,7 +260,7 @@ $contact= $user->data()->contact;
 						<label for="first_name">Email</label>
 						<Input type="text" class="form-control" name="email" placeholder="Email" value="<?php echo $email; ?>" disabled>
 
-						<span><a href="change_email.php?user_id=<?php echo $user_id; ?>" style="margin-left: 10px; margin-top:0.8em; display: inline-block">Change Email</a></span>
+						<span><a href="change_email.php?user_id=<?php echo $person_id; ?>" style="margin-left: 10px; margin-top:0.8em; display: inline-block">Change Email</a></span>
 
 
 					</div>
@@ -249,20 +281,25 @@ $contact= $user->data()->contact;
 
 						<button class="btn btn-primary" type="submit" name="save_submit">Save Change</button>
 
-						<?php 
+
+					<!--====  if user is the administrator show the delete button=======-->
 
 
-						if(session::get('user') == "admin") {
+					<?php 
 
+							$user  = new User;
 
-							?>
+							if($user->has_permission("admin")) {
 
-							<button class="btn btn-danger" type="submit" name="delete_submit">Delete</button>
+								?>
 
-							<?php
-						}
+			<button class="btn btn-danger" name="delete_submit" type="submit" style="margin-left: 20px;">Delete</button>
 
-						?>
+								<?php 
+							}
+
+					 ?>
+						
 
 
 					</div>
