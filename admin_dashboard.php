@@ -46,7 +46,7 @@ require_once "header.php";
 
 					<i class="fa fa-bullhorn"></i>
 					
-					<p class="lead"><a href="announcements.php">Announcements</a></p>
+					<p class="lead"><a href="announcements.php">Create News</a></p>
 				</div>
 
 
@@ -55,7 +55,7 @@ require_once "header.php";
 
 					<i class="fa fa-calendar"></i>
 					
-					<p class="lead"><a href="announcements.php">Timesheet</a></p>
+					<p class="lead"><a href="admin_view_timesheet.php">Timesheet</a></p>
 				</div>
 
 

@@ -15,6 +15,7 @@ return array(
     'Input' => $baseDir . '/classes/input.php',
     'Redirect' => $baseDir . '/classes/redirect.php',
     'Session' => $baseDir . '/classes/session.php',
+    'Team' => $baseDir . '/classes/Team.php',
     'Test' => $baseDir . '/classes/test.php',
     'Timesheet' => $baseDir . '/classes/timesheet.php',
     'User' => $baseDir . '/classes/user.php',

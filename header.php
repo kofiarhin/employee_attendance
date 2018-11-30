@@ -52,6 +52,9 @@ $user = new User;
 
 
 					<a href="profile.php?user_id=<?php echo $user->data()->id; ?>"><?php echo ucfirst($user->data()->first_name); ?></a>
+
+					<a href="team.php">Team</a>
+					<a href="news.php">News</a>
 					
 					<a href="logout.php">Logout</a>
 

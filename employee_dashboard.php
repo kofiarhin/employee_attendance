@@ -36,7 +36,7 @@
  		<div class="col-md-3 admin-unit">
 
  			<i class="fa fa-calendar"></i>
- 			<p class="lead"><a href="register.php">Timesheet</a></p>
+ 			<p class="lead"><a href="employee_timesheet.php">Timesheet</a></p>
 
  		</div>
 
@@ -46,14 +46,10 @@
 		<div class="col-md-3 admin-unit">
 
 			<i class="fa fa-envelope"></i>
-			<p class="lead"><a href="register.php">Leave Application</a></p>
+			<p class="lead"><a href="leave_application.php">Leave Application</a></p>
 
 		</div>
 
-
-
- 		
- 		
 
 
  		<div class="col-md-3 admin-unit">
@@ -61,7 +57,7 @@
 
  			<i class="fa fa-dollar"></i>
  			
- 			<p class="lead"><a href="announcements.php">Reimbursements</a></p>
+ 			<p class="lead"><a href="reimbursement.php">Reimbursements</a></p>
  		</div>
 
 

@@ -1,305 +1,131 @@
 <?php 
 
-
-require_once "header.php";
-use Carbon\Carbon;
+	require_once "header.php";
 
 
-$user = new User;
-$timesheet = new Timesheet;
+	if(!$user->logged_in()) {
 
 
-$current_month  = Get_current_month();
-
-
-
-
-//check if user is logged in
-
-if(!$user->logged_in()) {
-
-	Redirect::to("login.php");
-}
-
-
-
-
-//get user id;
-$user_id = session::get('user');
-$date = date("Y-m-d");
-
-
-$name = "";
-$profile_pic = "default.jpg";
-
-if($user->exist()) {
-
-	$name = $user->data()->first_name.' '.$user->data()->last_name;
-	$profile_pic = $user->data()->profile_pic;
-
-}
-
-
-//echo $profile_pic;
-
-
-?>
-
-
-<?php 
-
-
-if(Input::exist('post', 'stampin_submit')) {
-
-
-	$user_id = session::get('user');
-	$time_in = date("H:i:s");
-
-
-	$fields = array(
-
-		'user_id' => (int) $user_id, 
-		'time_in' => $time_in,
-		'created_on' => date("Y-m-d")
-
-	);
-
-
-
-
-	$timesheet = new Timesheet();
-
-
-	$stamp_in = $timesheet->stamp_in($fields);
-
-
-
-}
-
-
-
-if(Input::exist("post", "stampout_submit")) {
-
-	$time_out = date("H:i:s");
-	$id = Input::get("timesheet_id");
-	
-	$stampout = $timesheet->stamp_out($id, $time_out);
-
-	if($stampout) {
-
-		Redirect::to("employee_timesheet.php");
+		Redirec::to("login.php");
 	}
 
 
-}
+	$user_id = $user->data()->id;
+
+	$timesheet = new Timesheet;
 
 
 
-?>
+
+
+ ?>
+
 
 <div class="container">
-
-
-	<div class="row justify-content-center">
-		
-		
-		<div class="col-md-4">
-
-			<div class="content-wrapper">
-
-
-				<?php 
-
-
-				if($timesheet->completed()) {
-
-
-							//show hours worked;
-
-
-					$hours_worked = $timesheet->get_hours_worked($user_id, $date);
-
-					$unit = "";
-
-					if($hours_worked) {
-
-						$unit = ($hours_worked > 1 ) ?  "hours" : "hour";
-
-						?>
-
-						<h1 class="sub-title">Total Hours for Today: <strong> <?php echo $hours_worked ?> <?php echo $unit; ?></strong> </h1>
-
-						<?php  
-					}else {
-
-						?>
-
-
-						<h1 class="title">You did not meet minimum working hours!</h1>
-
-						<?php 
-					}
-
-
-				} else {
-
-
-
-					?>
-
-
-					<h1 class="title text-center">
-
-						<?php 
-
-
-						$check = $timesheet->check($user_id, $date);
-
-						if($check) {
-
-
-							echo "Done With For the Day?";
-
-
-						} else {
-
-
-							echo "Ready For Work?";
-						}
-
-						?>
-
-
-					</h1>
-
-
-					<form action=""  method='post'>
-
-						<?php 
-
-								//check if user has already stamped
-
-
-						$check  = $timesheet->check($user_id, $date);
-
-
-						if($check) {
-
-
-							?>
-
-							<Input type="hidden" name="timesheet_id" value="<?php echo $check; ?>">
-
-							<button class="btn btn-danger" type="submit" name="stampout_submit">Stamp Out!</button>
-							<?php 
-						} else {
-
-
-							?>
-
-							<button class="btn btn-primary" type="submit" name="stampin_submit">Stamp IN</button>
-
-							<?php 
-						}
-
-						?>
-
-
-
-					</form>
-
-
-					<?php 
-
-				}
-
-				?>
-
-
-
-			</div>
-		</div>
-
-	</div>
-
-
-
-
-	<h2 class="sub-title text-center">Your Timesheet for <?php echo $current_month; ?></h2>
-
-
-	<div class="row justify-content-center">
+	
 		
 
-			<table class="table">
-				
-				<thead>
+		 <?php 
+
+		 	if(!$timesheet->exist()) {
+
+		 		
+
+		 		?>
+
+				<p class="alert alert-info">You are yet to Put in Work!</p>
+
+
+		 		<?php 
+
+
+		 	} else {
+
+
+		 			$datas = $timesheet->data();
+
+
+
+		 			?>
+
+						<h1 class="title text-center">Your Timesheet</h1>
+
 					
-					<tr>
+					<div class="row justify-content-center">
 						
-						<th>Date</th>
-						<th>Stamp In</th>
-						<th>Stamp Out</th>
-						<th>Total Hours</th>
-					</tr>
-				</thead>
+				
+						<div class="col-md-10">
+							
+							<table class="table">
+								
+								<thead>
+									
+									<tr>
+										
+										<th class="text-center">Date</th>
+										<th class="text-center">Time In</th>
+										<th class="text-center">Time Out</th>
+										<th class="text-center">Total Hours</th>
+										<th class="text-center">Action</th>
+									</tr>
+								</thead>
 
-				<tbody>
-						
-						<tr>
-							<td>1st Aug</td>
-							<td>8:00</td>
-							<td>4:00</td>
-							<td>8</td>
-						</tr>
+								<tbody>
+									
 
+									<?php 
 
-						<tr>
-							<td>2nd Aug</td>
-							<td>8:00</td>
-							<td>4:00</td>
-							<td>8</td>
-						</tr>
-
-
-						<tr>
-							<td>4th Aug</td>
-							<td>8:00</td>
-							<td>4:00</td>
-							<td>8</td>
-						</tr>
+										foreach($datas as $data) {
 
 
-						<tr>
-							<td>5th Aug</td>
-							<td>8:00</td>
-							<td>4:00</td>
-							<td>8</td>
-						</tr>
+												$time_in = new Datetime($data->time_in);
 
-						<tr>
-							<td>6th Aug</td>
-							<td>8:00</td>
-							<td>4:00</td>
-							<td>8</td>
-						</tr>
-
-						<tr>
-							<td></td>
-							<td></td>
-							<td><strong>Total Hours</strong></td>
-							<td><strong>120</strong></td>
-						</tr>
+												$time_out = new DateTime($data->time_out);
 
 
-				</tbody>
+												$difference = $time_in->diff($time_out);
 
-			</table>
+												$total_hours = $difference->h;
+
+											?>
+
+		<tr>
+			
+			<td class="text-center"><?php echo $data->created_on; ?></td>
+			<td class="text-center"><?php echo $data->time_in; ?></td>
+			<td class="text-center"><?php echo $data->time_out; ?></td>
+			<td class="text-center"><?php echo $total_hours; ?></td>
+			<td class="text-center"><a href="view_timecard.php?user_id=<?php echo $user_id; ?>" class="btn btn-sm btn-primary">View</a></td>
+		</tr>
+
+											<?php 
+										}
 
 
-	</div>
+
+									 ?>
 
 
+								</tbody>
+
+
+							</table>
+						</div>
+
+
+					</div>
+
+
+		 			<?php 
+
+
+		 		 
+		 	}
+
+
+
+		  ?>
 
 
 </div>
+

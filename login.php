@@ -82,6 +82,7 @@ require_once "header.php";
 
 									} else {
 
+								
 										Redirect::to("route.php");
 									}
 								} else {
@@ -102,6 +103,8 @@ require_once "header.php";
 
 
 								if(!$login) {
+
+
 
 									Session::flash("error", "Invalid Email/Password Combination");
 
