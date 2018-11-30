@@ -1,6 +1,8 @@
 <?php 
 
 
+	use Carbon\Carbon;
+
 	class Timesheet {
 
 
@@ -32,6 +34,10 @@
 
 			public function get_hours_worked($user_id, $date) {
 
+
+
+
+
 				$sql = "select * from timesheet where user_id = ? and created_on = ?";
 
 				$fields = array(
@@ -45,10 +51,41 @@
 				if($query->count()) {
 
 
+					$time_in = new Carbon($query->first()->time_in);
+					$time_out = new Carbon($query->first()->time_out);
+
+
+					$difference = $time_in->diff($time_out);
+
+					switch (true) {
+						case $difference->h > 0:
+							echo "you worked less hours";
+							break;
+
+						case $difference->h == 0:
+
+							echo $difference->m;
+
+							break;
+						
+						default:
+							# code...
+							break;
+					}
+
+
+					var_dump($difference);
+
+
+
+
 					//var_dump($query->first());
+
+					/*
 
 
 					$time_in = new DateTime($query->first()->time_in);
+
 					$time_out =  new DateTime($query->first()->time_out);
 
 					$difference = $time_in->diff($time_out); 
@@ -56,9 +93,11 @@
 					$hours_worked = $difference->h;
 
 					return $hours_worked;
+				*/
 				}
 
-				return false;
+
+				//return false;
 			} 
 
 
@@ -70,27 +109,28 @@
 
 			public function check_complete($user_id, $date) {
 
+						
 
-						$sql = "select * from timesheet where user_id = ? and created_on = ?";
+						
+						$sql = "select * from timesheet where user_id = ? and created_on = ? and completed = ?";
 
 						$fields = array(
 
 							'user_id' => $user_id,
-							'created_on' => $date
-
+							'created_on' => $date,
+							"completed" => 1
 
 						);
 
 						$query = $this->db->query($sql, $fields);
 
+
+					
+
 						if($query->count()) {
 
-							$completed = $query->first()->completed;
-
-							if($completed == 1) {
-
 								$this->completed = true;
-							}
+							
 						}
 
 			}
@@ -103,6 +143,7 @@
 				$stamp = $this->db->insert("timesheet", $fields);
 
 				if($stamp) {
+
 
 					return true;
 				}

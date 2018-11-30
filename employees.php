@@ -37,7 +37,7 @@ $datas = $user->get_all_users();
 					$name = $data->first_name. " ".$data->last_name;
 					$person_pic = $data->profile_pic;
 					$position = $data->position_name;
-					echo $person_id = $data->user_id;
+					$person_id = $data->user_id;
 
 
 				?>

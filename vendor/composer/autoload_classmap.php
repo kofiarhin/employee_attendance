@@ -11,6 +11,7 @@ return array(
     'Db' => $baseDir . '/classes/db.php',
     'File' => $baseDir . '/classes/file.php',
     'Hash' => $baseDir . '/classes/hash.php',
+    'Helper' => $baseDir . '/classes/Helper.php',
     'Input' => $baseDir . '/classes/input.php',
     'Redirect' => $baseDir . '/classes/redirect.php',
     'Session' => $baseDir . '/classes/session.php',

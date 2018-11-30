@@ -55,11 +55,15 @@
 		public function update($user_id, $fields) {
 
 
+			echo $user_id;
 
 			$update = $this->db->update('users', $fields, array('id', '=', $user_id));
 
+	
+
 			if($update) {
 
+				Session::flash("success",  "Your Profile was successfully updated");
 				return true;
 			}
 
@@ -161,6 +165,49 @@
 		
 
 			
+
+		}
+
+
+		public function delete($id) {
+
+
+
+				$delete = $this->db->delete("users", array('id', '=', $id));
+
+
+				if($delete) {
+
+					Session::flash("success", "account Successfully deleted");
+
+
+					return true;
+				}
+
+
+				return false;
+
+
+
+
+				/*
+
+				die($user_id);
+
+
+				$delete = $this->db->delete("users", array('id', '=', $user_id));
+
+				if($delete) {
+
+
+					Session::flash("success", "Account Successfully Deleted");
+					return true;
+				}
+
+				return  false;
+
+				*/
+
 
 		}
 
