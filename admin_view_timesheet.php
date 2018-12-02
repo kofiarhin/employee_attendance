@@ -10,7 +10,7 @@ $timesheet = new Timesheet;
 if($user->has_permission("admin")) {
 
 
-		$datas = $timesheet->get_all_user_timesheet();
+	$datas = $timesheet->get_all_user_timesheet();
 
 
 }
@@ -24,42 +24,76 @@ if($user->has_permission("admin")) {
 	<h1 class="title">View All User Timesheet</h1>
 
 
+
+
+	<form action="search.php" method="post" class="form-inline">
+
+
+		<div class="form-group">
+			<select name="all" id="" class="form-control"><option value="">All</option></select>
+		</div>
+
+		<div class="form-group">
+			<label for="from">From</label>
+			<input type="date" class="form-control" name="start_date">
+			
+			
+		</div>
+
+		<div class="form-group">
+			
+
+			<label for="to">To</label>
+
+			<input type="date" class="form-control" name="end_date">
+			
+		</div>
+
+		<div class="form-group">
+			
+			<button class="btn btn-primary" type="submit" name="search_submit">Search</buton>
+		</div>
+
+
+	</form>
+
+
 	<?php 
 
-			if($datas) {
+	if($datas) {
 
 
 
-				?>
+		?>
 
 
 		<table class="table">
 			
-		<thead>
-			
-			<tr>
-				<td>Date</td>
-				<td>Name</td>
-				<td>Time In</td>
-				<td>Time Out</td>
-				<td>Total Hours</td>
-				<td>Action</td>
-			</tr>
+			<thead>
 
-		</thead>
+				<tr>
+					<td>Date</td>
+					<td>Name</td>
+					<td>Time In</td>
+					<td>Time Out</td>
+					<td>Total Hours</td>
+					<td>Action</td>
+				</tr>
 
-		<tbody>
-			
-			<?php foreach($datas as $data) : ?>
-				
+			</thead>
 
-			<?php 
+			<tbody>
 
-				$total_hours= Helper::total_hours($data->time_in, $data->time_out);
+				<?php foreach($datas as $data) : ?>
 
-				$approved = $data->approved;
 
-			 ?>
+					<?php 
+
+					$total_hours= Helper::total_hours($data->time_in, $data->time_out);
+
+					$approved = $data->approved;
+
+					?>
 					<tr class="<?php if($approved) { echo "table-success";} else { echo "table-danger";} ?>">
 						
 						<td><?php echo $data->created_on;?></td>
@@ -69,26 +103,26 @@ if($user->has_permission("admin")) {
 						<td><?php echo $total_hours?></td>
 						<td><a href="admin_view_timecard.php">View</a></td>
 					</tr>
-			<?php endforeach; ?>
+				<?php endforeach; ?>
 
 
-		</tbody>
+			</tbody>
 
 		</table>
 
-				<?php 
+		<?php 
 
-			} else {
+	} else {
 
 
-				?>
+		?>
 
 		<p class="alert alert-warning"> No Data in Timesheet!</p>
 
-				<?php 
-			}
+		<?php 
+	}
 
 
-	 ?>
+	?>
 	
 </div>

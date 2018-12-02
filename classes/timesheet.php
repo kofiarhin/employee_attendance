@@ -83,6 +83,37 @@
 			}
 
 
+			public function search($start, $end) {
+
+				echo $start , "<br>";
+				echo $end;
+				$sql = "select * from timesheet
+
+					inner join users
+
+					on timesheet.user_id = users.id
+
+
+				 where created_on between ? and ?";
+
+				$fields = array(
+					$start,
+					$end
+				);
+
+				$query = $this->db->query($sql, $fields);
+
+				if($query->count()) {
+
+					return $query->result();
+				}
+
+				return false;
+
+
+			}
+
+
 			public function delete($id) {
 
 
