@@ -23,13 +23,13 @@ $timesheet = new Timesheet;
 
 <div class="container">
 	
-	
+
 
 	<?php 
 
 	if(!$timesheet->exist()) {
 
-		
+
 
 		?>
 
@@ -50,18 +50,18 @@ $timesheet = new Timesheet;
 
 		<h1 class="title text-center">Your Timesheet</h1>
 
-		
+
 		<div class="row justify-content-center">
-			
-			
+
+
 			<div class="col-md-10">
-				
+
 				<table class="table">
-					
+
 					<thead>
-						
+
 						<tr>
-							
+
 							<th class="text-center">Date</th>
 							<th class="text-center">Time In</th>
 							<th class="text-center">Time Out</th>
@@ -71,7 +71,7 @@ $timesheet = new Timesheet;
 					</thead>
 
 					<tbody>
-						
+
 
 						<?php 
 
@@ -79,6 +79,7 @@ $timesheet = new Timesheet;
 
 
 							$timesheet_id = $data->id;
+							$approved = $data->approved;
 
 
 							$time_in = new Datetime($data->time_in);
@@ -92,8 +93,10 @@ $timesheet = new Timesheet;
 
 							?>
 
-							<tr>
-								
+							<tr class="<?php if($approved) { echo "table-success";} else {
+								echo  "table-danger";; 
+							} ?>">
+
 								<td class="text-center"><?php echo $data->created_on; ?></td>
 								<td class="text-center"><?php echo $data->time_in; ?></td>
 								<td class="text-center"><?php echo $data->time_out; ?></td>
@@ -122,7 +125,7 @@ $timesheet = new Timesheet;
 		<?php 
 
 
-		
+
 	}
 
 

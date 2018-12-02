@@ -44,20 +44,23 @@ require_once "header.php";
 				<div class="col-md-3 admin-unit">
 
 
+					<i class="fa fa-calendar"></i>
+					
+					<p class="lead"><a href="admin_view_timesheet.php">Timesheet</a></p>
+				</div>
+
+
+
+				<div class="col-md-3 admin-unit">
+
+
 					<i class="fa fa-bullhorn"></i>
 					
 					<p class="lead"><a href="announcements.php">Create News</a></p>
 				</div>
 
 
-				<div class="col-md-3 admin-unit">
-
-
-					<i class="fa fa-calendar"></i>
-					
-					<p class="lead"><a href="admin_view_timesheet.php">Timesheet</a></p>
-				</div>
-
+				
 
 				<div class="col-md-3 admin-unit">
 

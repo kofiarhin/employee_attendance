@@ -48,6 +48,11 @@ $data = $timesheet->get_timesheet($timesheet_id);
 
 
 				$approve = $timesheet->approve($timesheet_id);
+
+				if($approve) {
+
+					Redirect::to("employee_timesheet.php");
+				}
 			}
 
 	 ?>
@@ -100,7 +105,16 @@ $data = $timesheet->get_timesheet($timesheet_id);
 
 						?><a href="edit_timecard.php?timesheet_id=<?php echo $timesheet_id; ?>">Edit</a><?php 
 
-					} else {echo 'Approved';} ?></td>
+					} else {
+
+
+						?>
+		
+							<a href="delete_timecard.php?timesheet_id=<?php echo $timesheet_id; ?>" class="btn btn-danger">Delete</a>
+
+						<?php 
+
+				} ?></td>
 				</tr>
 			</tbody>
 

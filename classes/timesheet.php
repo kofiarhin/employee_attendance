@@ -3,7 +3,7 @@
 
 	use Carbon\Carbon;
 
-	class Timesheet {
+	class Timesheet extends User {
 
 
 			private $db = null,
@@ -14,12 +14,12 @@
 			public function __construct($user_id = false) {
 
 
-				$this->db = db::get_instance();
+				$this->db = Db::get_instance();
 
 				if(!$user_id) {
 
 
-						if(session::exist("user")) {
+						if(Session::exist("user")) {
 
 							$date = date("Y-m-d");
 							$user_id = session::get('user');
@@ -36,6 +36,10 @@
 						}
 
 
+					//if user has permission of administrator get all the users timesheet details;
+
+
+
 
 				} else {
 
@@ -46,6 +50,71 @@
 
 
 				
+
+
+			}
+
+
+			public function get_all_user_timesheet() {
+
+
+					$sql = "select * from timesheet
+
+					inner join users on
+
+					timesheet.user_id = users.id
+
+
+					order by users.first_name desc
+
+					";
+
+					$query = $this->db->query($sql);
+
+					if($query->count()) {
+
+						return($query->result());
+					}
+
+
+					return false;
+
+
+			}
+
+
+			public function delete($id) {
+
+
+				$delete = $this->db->delete("timesheet", array("id", "=", $id));
+
+				if($delete) {
+
+					Session::flash("success", "Timecard Successfully Deleted");
+
+					return true;
+
+				}
+
+
+				return false;
+
+			}
+
+
+			public function update_timecard($timesheet_id, $fields) {
+
+
+					$update = $this->db->update("timesheet", $fields, array('id', '=', $timesheet_id));
+
+					if($update) {
+
+						Session::flash("success", "Timesheet successfully updated");
+
+						return true;
+					}
+
+					return false;
 
 
 			}
