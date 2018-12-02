@@ -51,6 +51,23 @@
 			}
 
 
+			//returns the timesheet;
+
+			public function get_timesheet($id) {
+
+			    
+					$query = $this->db->get("timesheet", array('id',  '=', $id));
+
+					if($query->count()) {
+
+						return $query->first();
+					}
+
+
+					return false;
+			}
+
+
 			public function get_user_timesheet($user_id) {
 
 

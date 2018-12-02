@@ -78,6 +78,9 @@
 										foreach($datas as $data) {
 
 
+												$timesheet_id = $data->id;
+
+
 												$time_in = new Datetime($data->time_in);
 
 												$time_out = new DateTime($data->time_out);
@@ -95,7 +98,7 @@
 			<td class="text-center"><?php echo $data->time_in; ?></td>
 			<td class="text-center"><?php echo $data->time_out; ?></td>
 			<td class="text-center"><?php echo $total_hours; ?></td>
-			<td class="text-center"><a href="view_timecard.php?user_id=<?php echo $user_id; ?>" class="btn btn-sm btn-primary">View</a></td>
+			<td class="text-center"><a href="view_timecard.php?timesheet_id=<?php echo $timesheet_id; ?>" class="btn btn-sm btn-primary">View</a></td>
 		</tr>
 
 											<?php 
