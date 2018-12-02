@@ -68,6 +68,29 @@
 			}
 
 
+
+			public function approve($timesheet_id) {
+
+
+				$fields = array(
+
+					"approved" => 1
+				);
+
+				$update = $this->db->update("timesheet", $fields, array("id",  "=", $timesheet_id) );
+
+				if($update) {
+
+					return true;
+				}
+
+
+				return false;
+
+
+			}
+
+
 			public function get_user_timesheet($user_id) {
 
 
