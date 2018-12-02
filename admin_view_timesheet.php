@@ -6,6 +6,47 @@ require_once "header.php";
 $timesheet = new Timesheet;
 
 
+//generating fake data;
+
+//$faker = Faker\Factory::Create();
+
+/*
+foreach(range(1, 30) as $x) {
+
+	$month = 11;
+	$user_id = 23;
+
+
+	$date_range = $faker->dateTimeInInterval("november");
+
+	$fields = array(
+
+		'user_id' => $user_id,
+		'time_in' => '8:00',
+		'time_out' => '17:00',
+		'created_on' => '2018-'.$month.'-'.$x,
+		'completed' => 1,
+		"approved" => 1
+
+ 	);
+
+
+	db::get_instance()->insert("timesheet", $fields);
+
+
+
+	
+
+}
+
+
+
+*/
+
+
+
+
+
 
 if($user->has_permission("admin")) {
 
@@ -26,32 +67,29 @@ if($user->has_permission("admin")) {
 
 
 
-	<form action="search.php" method="post" class="form-inline">
+	<form action="" method="post" class="form-inline" id="search-form">
 
 
-		<div class="form-group">
-			<select name="all" id="" class="form-control"><option value="">All</option></select>
-		</div>
 
-		<div class="form-group">
-			<label for="from">From</label>
-			<input type="date" class="form-control" name="start_date">
+		<div class="form-group mr-sm-4">
+			<label for="from" class='mr-sm-2'>From</label>
+			<input type="date" class="form-control" name="start_date" id="start">
 			
 			
 		</div>
 
-		<div class="form-group">
+		<div class="form-group mr-sm-4">
 			
 
-			<label for="to">To</label>
+			<label for="to" class="mr-sm-2">To</label>
 
-			<input type="date" class="form-control" name="end_date">
+			<input type="date" class="form-control" name="end_date" id="end">
 			
 		</div>
 
 		<div class="form-group">
 			
-			<button class="btn btn-primary" type="submit" name="search_submit">Search</buton>
+			<button class="btn btn-primary" type="submit" name="search_submit" id="search">Search</buton>
 		</div>
 
 
@@ -67,7 +105,7 @@ if($user->has_permission("admin")) {
 		?>
 
 
-		<table class="table">
+		<table class="table" id="result">
 			
 			<thead>
 
