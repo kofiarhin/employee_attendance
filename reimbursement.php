@@ -1,117 +1,46 @@
 <?php 
 
 
-require_once "header.php";
+		require_once "header.php";
 
-?>
+		if(!$user->logged_in()) {
 
+			Redirect::to("login.php");
+		}
 
-<div class="container">
-
-
-	<h1 class="title text-center">Reimbursement</h1>
-
-	<div class="row justify-content-center">
-
-		
-		<div class="col-md-5">
+ ?>
 
 
-			<?php 
+ <div class="container">
+ 	
 
 
-					if(Input::exist("post", "submit")) {
-
+			<div class="row justify-content-center">
+				
+					<div class="col-md-8">
 						
+					<table class="table">
+						
+							<thead>
+								<tr>
+									<td>Date</td>
+									<td>Description</td>
+									<td>Amount</td>
+									<td>Status</td>
+								</tr>
+							</thead>
 
-							$validation = new Validation;
-
-							$fields = array(
-
-								'amount' => array(
-
-									'required' => true
-
-								),
-
-								'description' => array(
-
-									'required' => true
-
-								)
-
-							);
-
-							
-
-							$check = $validation->check($_POST, $fields);
-
-							if($check->passed()) {
-
+							<tbody>
 								
-									$reimbursement = new Reimbursement;
+								
+							</tbody>
+
+					</table>
 
 
+					</div>
 
-							} else {
-
-
-								foreach($check->errors() as $error) {
-
-									?>
-
-			<p class="alert alert-danger"><?php echo $error; ?></p>
-
-									<?php 
-								}
-							}	
+			</div>
 
 
-					}
-
-			 ?>
-
-
-			<form action="" method="post">
-
-
-				<div class="form-group">
-
-					<label for="reasons">Claim Reasons</label>
-					<select name="description" id="" class="form-control">
-
-						<option value="medical">Medical</option>
-						<option value="travel">Travel</option>
-
-
-					</select>
-
-
-				</div>
-
-
-				<div class="form-group">
-						
-						<label for="">Receipt Amount</label>
-						<input type="text" class="form-control" placeholder="Enter Receipt Amouont!" name="amount">
-
-
-				</div>
-
-
-
-				<button class="btn btn-primary" type="submit" name="submit">Submit</button>
-
-
-			</form>
-		</div>
-
-
-
-	</div>
-
-</div>
-
-
-
-
+ </div>
