@@ -56,7 +56,17 @@
 								//show the edit and delete button
 
 
-								echo "show buttons";
+								?>
+
+			<div class="button-wrapper">
+				
+				<a href="edit_annoncement.php" class="btn btn-primary">Edit</a>
+				<a href="delete_annoucement.php" class="btn btn-danger">Delete</a>
+
+			</div>
+
+
+								<?php 
 							}
 
 				 ?>

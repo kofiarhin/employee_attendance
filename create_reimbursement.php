@@ -55,7 +55,8 @@ require_once "header.php";
 
 										'user_id' => (int) Session::get('user'),
 										'description' => Input::get("description"), 
-										"amount" => (int) Input::get("amount"), 
+										"amount" => (int) Input::get("amount"),
+										"created_on" => date("Y-m-d H:i:s"),
 										'approved' => 0
 									);
 

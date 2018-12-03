@@ -67,7 +67,7 @@ require_once "header.php";
 
 					<i class="fa fa-dollar"></i>
 					
-					<p class="lead"><a href="reimbursement.php">Reimbursements</a></p>
+					<p class="lead"><a href="admin_view_reimbursement.php">Reimbursements</a></p>
 				</div>
 
 
