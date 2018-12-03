@@ -17,16 +17,71 @@ require_once "header.php";
 		<div class="col-md-5">
 
 
+			<?php 
+
+
+					if(Input::exist("post", "submit")) {
+
+						
+
+							$validation = new Validation;
+
+							$fields = array(
+
+								'amount' => array(
+
+									'required' => true
+
+								),
+
+								'description' => array(
+
+									'required' => true
+
+								)
+
+							);
+
+							
+
+							$check = $validation->check($_POST, $fields);
+
+							if($check->passed()) {
+
+								
+									$reimbursement = new Reimbursement;
+
+
+
+							} else {
+
+
+								foreach($check->errors() as $error) {
+
+									?>
+
+			<p class="alert alert-danger"><?php echo $error; ?></p>
+
+									<?php 
+								}
+							}	
+
+
+					}
+
+			 ?>
+
+
 			<form action="" method="post">
 
 
 				<div class="form-group">
 
 					<label for="reasons">Claim Reasons</label>
-					<select name="reasons" id="" class="form-control">
+					<select name="description" id="" class="form-control">
 
-						<option value="">Medical</option>
-						<option value="">Family</option>
+						<option value="medical">Medical</option>
+						<option value="travel">Travel</option>
 
 
 					</select>
@@ -38,14 +93,14 @@ require_once "header.php";
 				<div class="form-group">
 						
 						<label for="">Receipt Amount</label>
-						<input type="text" class="form-control" placeholder="Enter Receipt Amouont!">
+						<input type="text" class="form-control" placeholder="Enter Receipt Amouont!" name="amount">
 
 
 				</div>
 
 
 
-				<button class="btn btn-primary">Submit</button>
+				<button class="btn btn-primary" type="submit" name="submit">Submit</button>
 
 
 			</form>

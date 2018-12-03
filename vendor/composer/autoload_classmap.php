@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Announcement' => $baseDir . '/classes/Announcement.php',
     'Carbon\\Carbon' => $baseDir . '/classes/Carbon.php',
     'Config' => $baseDir . '/classes/config.php',
     'Db' => $baseDir . '/classes/db.php',
@@ -449,6 +450,7 @@ return array(
     'Helper' => $baseDir . '/classes/Helper.php',
     'Input' => $baseDir . '/classes/input.php',
     'Redirect' => $baseDir . '/classes/redirect.php',
+    'Reimbursement' => $baseDir . '/classes/Reimbursement.php',
     'Session' => $baseDir . '/classes/session.php',
     'Team' => $baseDir . '/classes/Team.php',
     'Test' => $baseDir . '/classes/test.php',

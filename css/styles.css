@@ -338,7 +338,7 @@ html, body {
   padding-bottom: 50px;
 }
 
-h1, h2, h3, h4, h5, p {
+h1, h2, h3, h4, h5 {
   margin: 0px;
   padding: 0px;
 }
@@ -417,6 +417,49 @@ section {
 .admin-unit i {
   margin-bottom: 20px;
   color: #38B0DE;
+}
+
+.ann-title {
+  margin-bottom: 40px;
+  font-size: 40px;
+  font-weight: 400;
+}
+
+.main-cover {
+  width: 100%;
+  padding-top: 50%;
+  margin-bottom: 40px;
+  background-size: cover;
+  background-position: center;
+  background-color: orange;
+}
+
+.ann-text {
+  font-size: 1.1em;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.news-unit {
+  width: 100%;
+  margin-bottom: 2.5em;
+}
+
+.news-unit .thumbnail {
+  margin-bottom: 1em;
+  width: 100%;
+  background: pink;
+  padding-top: 60%;
+}
+
+.news-unit .content .news-title {
+  font-size: 2em;
+  margin-bottom: 0.2em;
+}
+
+.news-unit .content .news-text {
+  font-size: 1.1em;
+  margin-bottom: 1em;
 }
 
 .main-header .container {

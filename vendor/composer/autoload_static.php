@@ -21,6 +21,7 @@ class ComposerStaticInit1f3be9c81b86f584ba53d11d4bd4132a
     );
 
     public static $classMap = array (
+        'Announcement' => __DIR__ . '/../..' . '/classes/Announcement.php',
         'Carbon\\Carbon' => __DIR__ . '/../..' . '/classes/Carbon.php',
         'Config' => __DIR__ . '/../..' . '/classes/config.php',
         'Db' => __DIR__ . '/../..' . '/classes/db.php',
@@ -464,6 +465,7 @@ class ComposerStaticInit1f3be9c81b86f584ba53d11d4bd4132a
         'Helper' => __DIR__ . '/../..' . '/classes/Helper.php',
         'Input' => __DIR__ . '/../..' . '/classes/input.php',
         'Redirect' => __DIR__ . '/../..' . '/classes/redirect.php',
+        'Reimbursement' => __DIR__ . '/../..' . '/classes/Reimbursement.php',
         'Session' => __DIR__ . '/../..' . '/classes/session.php',
         'Team' => __DIR__ . '/../..' . '/classes/Team.php',
         'Test' => __DIR__ . '/../..' . '/classes/test.php',

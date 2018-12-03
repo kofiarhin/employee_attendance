@@ -52,7 +52,8 @@ $date_range  = new DatePeriod($start, $interval, $end);
 						$fields = array(
 
 							'time_in' => input::get("time_in"),
-							'time_out' => input::get('time_out')
+							'time_out' => input::get('time_out'),
+							'completed' => 1
 						);
 
 						$update = $timesheet->update_timecard($timesheet_id, $fields);
