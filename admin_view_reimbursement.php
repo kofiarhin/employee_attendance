@@ -28,7 +28,10 @@ $datas = $reimbursement->get_all();
 <div class="container">
 
 
+	<h1 class="title text-center">Reimbursements!</h1>
 	<div class="row justify-content-center">
+
+
 
 
 		<div class="col-md-8">
@@ -71,9 +74,9 @@ $datas = $reimbursement->get_all();
 
 						foreach($datas as $data) {
 
-							var_dump($data);
+							//var_dump($data);
 
-							$id = $data->id;
+							$id = $data->rem_id;
 							$created_on = $data->created_on;
 							$name = $data->first_name." ".$data->last_name;
 							$amount= $data->amount;
@@ -89,7 +92,7 @@ $datas = $reimbursement->get_all();
 
 
 
-							<tr class="<?php if($data->approved == 0) { echo "table-danger";} else { echo "table success";} ?>">
+							<tr class="<?php if($data->approved == 0) { echo "table-danger";} else { echo "table-success";} ?>">
 								<td><?php echo $created_on; ?></td>
 								<td class="text-capitalize"><?php echo $name; ?></td>
 								<td><?php echo $amount; ?></td>
