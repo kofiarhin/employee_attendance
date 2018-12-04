@@ -1,12 +1,9 @@
 <?php 
 
-
 require_once "header.php";
 
 
-$id = Input::get('id');
-
-
+	//general house keeping
 
 if(!$user->logged_in()) {
 
@@ -15,121 +12,134 @@ if(!$user->logged_in()) {
 }
 
 
-if(!$id) {
-
-	Session::flash("error", "Request Does not exist");
 
 
-	Redirect::to("route.php");
+if(!$id = Input::get('id')) {
+
+
+	Session::flash("error", "Data does not exist");
+
+	Redirect::to("index.php");
 
 
 }
 
 
-
-$reimbursement = new Reimbursement;
-
-$data = $reimbursement->get_all($id);
-
-
-var_dump($data);
+$reimbursement = new Reimbursement($id);
 
 
 /*
-if(!$data) {
 
-	Session::flash("error", "Data does not exist");
+if(!$reimbursement->exist()) {
 
-	Redirect::to("route.php");
 
+	Session::flash("error", "Sorry Data does not exist!");
+	Redirect::to("index.php");
 }
 
 */
 
-$first_name = $data->first_name;
-$last_name  = $data->last_name;
-
-$profile_pic = $data->profile_pic;
-$created_on = $data->request_created_on;
-
-
-$approved = $data->approved;
-
-
-$status = ($approved == 0) ? "Pending" : "Approved";
-
-$rem_id = $data->rem_id;
 
 
 
+$data = $reimbursement->data();
+
+if(!$data) {
 
 
+	Session::flash("error", "Data does not exist in database!");
+
+
+	Redirect::to("index.php");
+
+
+}
+
+$crated_on = $data->rem_created_on;
+$name = $data->first_name." ".$data->last_name;
+$amount = $data->amount;
+
+$status = ($data->approved == 0) ? "Pending" : "Approved";
 
 ?>
 
 
 <div class="container">
 
+
+	<h1 class="title text-center">View Request</h1>
+
+
 	<div class="row justify-content-center">
 
-
-		<table class="table table-bordered">
-
-
-			<thead>
-
-				<tr>
-					<td>Requested On</td>
-					<td>Name</td>
-					<td>Status</td>
-					<td>Action</td>
-				</tr>
-
-			</thead>
-
-			<tbody>
-				
-
-				<tr>
-					
-				<td>
-				
-					<?php echo $created_on; ?>
-
-				</td>
-
-				<td>
-					<div class="t-face" style="background-image: url(img/<?php echo $profile_pic; ?>)"></div>
-				</td>
-				<td><?php echo $status; ?></td>
-				<td><a href="edit_reimbursement.php?id=<?php echo $rem_id ?>">Edit</a></td>
-
-				</tr>
-			</tbody>
+		<div class="col-md-8">
 
 
-		</table>
-
-
-
-		<div class="button-wrapper">
-			
 			<?php 
 
-					if($user->has_permission("admin")) {
+
+				if(Input::exist("post", "approve_submit")) {
+
+					$approve = $reimbursement->approve($id);
+
+					if($approve) {
 
 
-						?>
-
-				<a href="delete_reimbursement.php" class="btn btn-danger">Delete</a>
-				<a href="approve_reimbursement.php" class="btn btn-success">Approve Payment</a>
-
-
-						<?php 
+						Redirect::to("admin_view_reimbursement.php");
 					}
+				}
+
+
 
 			 ?>
 
+
+			<table class="table">
+				
+				<thead>
+					
+					<tr>
+						<th>Date</th>
+						<th>Name</th>
+						<th>Amount</th>
+						<th>Status</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+
+					<tr>
+
+						<td>25th December</td>
+						<td class="text-capitalize"><?php echo $name; ?></td>
+						<td>500</td>
+						<td><?php echo $status; ?></td>
+						<td><a href="delete_rem_request.php?id=<?php echo $id; ?>">Decline</a></td>
+					</tr>
+
+
+				</tbody>
+			</table>
+
+
+			<form action="" method="post">
+				
+				<div class="button-wrapper">
+					
+					<?php if($user->has_permission("admin")) {
+
+						?>
+
+						<button class="btn btn-primary" name="approve_submit"  type="submit" >Approve</button>
+						<?php
+					} ?>
+
+
+				</div>
+			</form>
+
+			
 
 		</div>
 
