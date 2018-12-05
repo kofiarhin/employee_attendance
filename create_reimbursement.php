@@ -57,7 +57,7 @@ require_once "header.php";
 										'description' => Input::get("description"), 
 										"amount" => (int) Input::get("amount"),
 										"created_on" => date("Y-m-d H:i:s"),
-										'approved' => 0
+										'status_id' => 1
 									);
 
 									$create = $reimbursement->create($fields);

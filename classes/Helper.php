@@ -5,9 +5,11 @@
 	class Helper	{
 
 
-		public static function date_stuff($date) {
+		public static function date_format($date) {
 
-				echo $date;
+				$date = new DateTime($date);
+
+				return $date->format("jS M Y");
 		}
 
 		public static function total_hours($time_in, $time_out) {
@@ -25,6 +27,7 @@
 
 		}
 
+	
 
 		public static function upload_file($file, $allowed, $d_folder) {
 

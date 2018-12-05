@@ -42,6 +42,9 @@ $datas = $reimbursement->get_all();
 
 			if(!$datas) {
 
+
+
+
 				?>
 
 
@@ -49,6 +52,9 @@ $datas = $reimbursement->get_all();
 
 				<?php  
 			} else {
+
+
+				//var_dump($datas[0]);
 
 
 				?>
@@ -74,15 +80,16 @@ $datas = $reimbursement->get_all();
 
 						foreach($datas as $data) {
 
-							//var_dump($data);
+						
 
 							$id = $data->rem_id;
 							$created_on = $data->created_on;
 							$name = $data->first_name." ".$data->last_name;
 							$amount= $data->amount;
+							$status = $data->rem_name;
 
 
-							$status = ($data->approved == 0) ? "pending" : "approved";
+							
 
 
 
@@ -92,7 +99,8 @@ $datas = $reimbursement->get_all();
 
 
 
-							<tr class="<?php if($data->approved == 0) { echo "table-danger";} else { echo "table-success";} ?>">
+							<tr>
+
 								<td><?php echo $created_on; ?></td>
 								<td class="text-capitalize"><?php echo $name; ?></td>
 								<td><?php echo $amount; ?></td>
