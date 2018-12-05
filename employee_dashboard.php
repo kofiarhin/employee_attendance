@@ -57,7 +57,7 @@
 
  			<i class="fa fa-dollar"></i>
  			
- 			<p class="lead"><a href="create_reimbursement.php">Reimbursements</a></p>
+ 			<p class="lead"><a href="employee_view_reimbursement.php">Reimbursements</a></p>
  		</div>
 
 

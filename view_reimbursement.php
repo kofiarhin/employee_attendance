@@ -44,6 +44,11 @@ if(!$reimbursement->exist()) {
 
 $data = $reimbursement->data();
 
+
+
+
+/*
+
 if(!$data) {
 
 
@@ -55,11 +60,16 @@ if(!$data) {
 
 }
 
-$crated_on = $data->rem_created_on;
-$name = $data->first_name." ".$data->last_name;
-$amount = $data->amount;
+*/
 
-$status = ($data->approved == 0) ? "Pending" : "Approved";
+//var_dump($data);
+
+$name  = $data->first_name. " ".$data->last_name;
+$status = $data->rem_name;
+$amount = $data->amount;
+$rem_status_id = $data->rem_status_id;
+$created_on = Helper::date_format( $data->rem_created_on);
+
 
 ?>
 
@@ -77,21 +87,57 @@ $status = ($data->approved == 0) ? "Pending" : "Approved";
 
 			<?php 
 
+			//check if admin has approved request
 
-				if(Input::exist("post", "approve_submit")) {
+			if(Input::exist("post", "approve_submit")) {
 
-					$approve = $reimbursement->approve($id);
 
-					if($approve) {
+				echo $id;
+
+				$approve = $reimbursement->approve($id);
+
+				if($approve) {
+
+
+					Redirect::to("admin_view_reimbursement.php");
+				}
+			}
+
+
+
+			//check if admin has declined request
+
+			if(Input::exist('post','decline_submit')) {
+
+
+
+					$decline = $reimbursement->decline($id);
+
+					if(!$decline) {
+
+
+						?>
+
+			<p class="alert alert-danger">There was a problem updating Database. Check with the Administrator!</p>
+
+
+						<?php  
+					} else {
 
 
 						Redirect::to("admin_view_reimbursement.php");
 					}
-				}
+  
 
 
 
-			 ?>
+
+
+			}
+
+
+
+			?>
 
 
 			<table class="table">
@@ -111,11 +157,13 @@ $status = ($data->approved == 0) ? "Pending" : "Approved";
 
 					<tr>
 
-						<td>25th December</td>
+						<td><?php echo $created_on; ?></td>
 						<td class="text-capitalize"><?php echo $name; ?></td>
-						<td>500</td>
+						<td><?php echo $amount; ?></td>
 						<td><?php echo $status; ?></td>
-						<td><a href="delete_rem_request.php?id=<?php echo $id; ?>">Decline</a></td>
+
+						<td><a href="delete_rem_request.php?rem_id=<?php echo $id; ?>">Delete</a></td>
+
 					</tr>
 
 
@@ -126,14 +174,70 @@ $status = ($data->approved == 0) ? "Pending" : "Approved";
 			<form action="" method="post">
 				
 				<div class="button-wrapper">
-					
-					<?php if($user->has_permission("admin")) {
+
+
+
+					<?php 
+
+					if($user->has_permission("admin")) {
 
 						?>
 
-						<button class="btn btn-primary" name="approve_submit"  type="submit" >Approve</button>
-						<?php
-					} ?>
+						<form action="" method="post">
+
+
+							<div class="button-wrapper">
+
+								<?php 
+
+								//if not approved show the approval button
+
+								if($rem_status_id != 2) {
+
+									?>
+
+									<button class="btn btn-primary" type='submit' name="approve_submit">Approve!</button>
+
+
+									<?php 
+								}
+
+
+								?>
+
+
+								<!--====  show the button when status is not declined or =======-->
+
+
+								<?php 
+
+										if($rem_status_id != 3) {
+
+
+											?>
+
+
+								<button class="btn btn-danger" name="decline_submit" type="submit">Decline</button>
+
+											<?php 
+										}
+
+
+								 ?>
+
+
+
+
+							</div>
+
+						</form>
+
+
+						<?php 
+					}
+
+
+					?>
 
 
 				</div>
