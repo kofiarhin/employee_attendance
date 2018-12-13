@@ -464,6 +464,7 @@ class ComposerStaticInit1f3be9c81b86f584ba53d11d4bd4132a
         'Hash' => __DIR__ . '/../..' . '/classes/hash.php',
         'Helper' => __DIR__ . '/../..' . '/classes/Helper.php',
         'Input' => __DIR__ . '/../..' . '/classes/input.php',
+        'Leave' => __DIR__ . '/../..' . '/classes/Leave.php',
         'Redirect' => __DIR__ . '/../..' . '/classes/redirect.php',
         'Reimbursement' => __DIR__ . '/../..' . '/classes/Reimbursement.php',
         'Session' => __DIR__ . '/../..' . '/classes/session.php',

@@ -449,6 +449,7 @@ return array(
     'Hash' => $baseDir . '/classes/hash.php',
     'Helper' => $baseDir . '/classes/Helper.php',
     'Input' => $baseDir . '/classes/input.php',
+    'Leave' => $baseDir . '/classes/Leave.php',
     'Redirect' => $baseDir . '/classes/redirect.php',
     'Reimbursement' => $baseDir . '/classes/Reimbursement.php',
     'Session' => $baseDir . '/classes/session.php',

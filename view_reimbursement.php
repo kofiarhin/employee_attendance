@@ -199,6 +199,10 @@ $created_on = Helper::date_format( $data->rem_created_on);
 									<button class="btn btn-primary" type='submit' name="approve_submit">Approve!</button>
 
 
+
+									<button class="btn btn-danger" name="decline_submit" type="submit">Decline</button>
+
+
 									<?php 
 								}
 
@@ -209,21 +213,7 @@ $created_on = Helper::date_format( $data->rem_created_on);
 								<!--====  show the button when status is not declined or =======-->
 
 
-								<?php 
-
-										if($rem_status_id != 3) {
-
-
-											?>
-
-
-								<button class="btn btn-danger" name="decline_submit" type="submit">Decline</button>
-
-											<?php 
-										}
-
-
-								 ?>
+								
 
 
 

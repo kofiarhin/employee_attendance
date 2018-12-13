@@ -69,7 +69,6 @@ $contact= $person->data()->contact;
 
 		<a href="view_user_timesheet?user_id=<?php echo $person_id; ?>" class="btn btn-link btn-lg">View Timesheet</a>
 
-		<a href="assign_to_team.php?user_id=<?php echo $person_id; ?>">Assign To Team</a>
 
 							<?php 
 

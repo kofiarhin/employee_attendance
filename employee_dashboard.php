@@ -61,6 +61,15 @@
  		</div>
 
 
+ 		<div class="col-md-3 admin-unit">
+
+
+ 			<i class="fa fa-dollar"></i>
+ 			
+ 			<p class="lead"><a href="employee_view_reimbursement.php">Wallet</a></p>
+ 		</div>
+
+
  	</div>
 
 

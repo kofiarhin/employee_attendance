@@ -334,7 +334,8 @@
 			users.salt,
 			users.profile_pic,
 			users.created_on,
-			users.contact, 
+			users.contact,
+			users.leave_days, 
 
 
 			positions.id as position_id,

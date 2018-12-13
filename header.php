@@ -5,6 +5,22 @@ require_once "core/init.php";
 
 $user = new User;
 
+
+$main_pic  = "default.jpg";
+
+
+if($user->exist()) {
+
+
+		$file = $user->data()->profile_pic;
+
+		$file_path  = "img/".$file;
+
+		$main_pic = (file_exists($file_path)) ? $file : "default.jpg"; 
+
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -48,13 +64,17 @@ $user = new User;
 					?>
 
 
+					<a href="profile.php?user_id=<?php echo $user->data()->id; ?>"><?php echo ucfirst($user->data()->first_name); ?></a>
 					<a href="<?php echo $dashpath; ?>">Dashboard</a>
 
-
-					<a href="profile.php?user_id=<?php echo $user->data()->id; ?>"><?php echo ucfirst($user->data()->first_name); ?></a>
+					<a href="logout.php">Logout</a>
+					<a href="profile.php?user_id=<?php echo $user->data()->id; ?>">
+					<div class="profile-pic" style="background-image: url(img/<?php echo $main_pic; ?>)"></div>
+						
+					</a>
 
 					
-					<a href="logout.php">Logout</a>
+					
 
 					<?php 
 				} else {

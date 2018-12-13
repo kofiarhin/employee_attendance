@@ -26,6 +26,8 @@ if(!$timesheet_id) {
 $timesheet =  new Timesheet();
 
 
+
+
 $data = $timesheet->get_timesheet($timesheet_id);
 
 		//var_dump($data);
@@ -43,25 +45,27 @@ $data = $timesheet->get_timesheet($timesheet_id);
 
 	<?php 
 
-			if(Input::exist("post", "approve_submit")) {
+	if(Input::exist("post", "approve_submit")) {
 
 
 
-				$approve = $timesheet->approve($timesheet_id);
+		$approve = $timesheet->approve($timesheet_id);
 
-				if($approve) {
+		if($approve) {
 
-					Redirect::to("employee_timesheet.php");
-				}
-			}
+			Redirect::to("employee_timesheet.php");
+		}
+	}
 
-	 ?>
+	?>
 
 
 	<?php 
 
 	if($data) {
 
+
+		//var_dump($data);
 
 		$time_in = new Datetime($data->time_in);
 		$time_out= new Datetime($data->time_out);
@@ -70,9 +74,7 @@ $data = $timesheet->get_timesheet($timesheet_id);
 
 		$total_hours = $difference->h;
 
-		$approved = $data->approved;
-
-							//echo $total_hours;
+		echo $approved = $data->approved;
 
 
 		?>
@@ -86,7 +88,7 @@ $data = $timesheet->get_timesheet($timesheet_id);
 					<td>Time In</td>
 					<td>Time Out</td>
 					<td>Total Hours</td>
-					<td>Status</td>
+					<td>Action</td>
 				</tr>
 			</thead>
 
@@ -94,27 +96,34 @@ $data = $timesheet->get_timesheet($timesheet_id);
 			<tbody>
 				
 
-				<tr>
+				<tr class="<?php if($approved == 1) { echo "table-success";} else { echo "table-danger";} ?>">
 					
 					<td><?php echo $data->created_on; ?></td>
 					<td><?php echo $data->time_in; ?></td>
-					<td><?php echo $data->time_out; ?></td>
+					<td><?php if($data->time_out == null ) { echo "--:--";} else { echo $data->time_out;} ?></td>
 					<td><?php echo $total_hours; ?></td>
-					<td><?php if($approved == 0 ) { 
-
-
-						?><a href="edit_timecard.php?timesheet_id=<?php echo $timesheet_id; ?>">Edit</a><?php 
-
-					} else {
-
-
-						?>
-		
-							<a href="delete_timecard.php?timesheet_id=<?php echo $timesheet_id; ?>" class="btn btn-danger">Delete</a>
-
+					<td>
+						
 						<?php 
 
-				} ?></td>
+								if($approved != 1) {
+
+									?>
+							<a href="edit_timecard.php?timesheet_id=<?php echo $timesheet_id; ?>" class="btn btn-warning">Edit</a>
+
+									<?php 
+								} else {
+
+									?>
+									<a href="delete_timecard.php?timesheet_id=<?php echo $timesheet_id; ?>" class="btn btn-danger">Delete</a>
+
+
+									<?php 
+								}
+
+						 ?>
+
+					</td>
 				</tr>
 			</tbody>
 
@@ -126,22 +135,28 @@ $data = $timesheet->get_timesheet($timesheet_id);
 
 		<?php 
 
-			if($approved == 0) {
+		if($approved == 0) {
+
+
+			if($timesheet->completed()) {
 
 
 				?>
-		
-			<div class="button-wrapper">
-				
+
+
 				<form action="" method="post">
-					
-					<button class="btn btn-primary" type="submit" name="approve_submit">Approve</button>
+					<div class="button-wrapper">
+
+
+
+						<button class="btn btn-primary" type="submit" name="approve_submit">Approve</button>
+					</div>
 				</form>
-			</div>
 
 
 				<?php 
-			}
+			} 
+		} 
 
 	}
 
